@@ -120,19 +120,25 @@ function GTMCalculator() {
   const budgetDifference = allocationTotal - budget;
 
   const calculations = React.useMemo(() => {
-    let linkedinAdsMeetings = 1, contentMeetings = 1.5, baseOutreachMeetings = 6, webinarMeetings = 2;
+    // Calculate meetings per channel based on actual budgets and custom costs
+    const linkedinAdsBudget = customAllocation['LinkedIn Ads'] || 0;
+    const linkedinAdsMeetings = linkedinAdsBudget > 0 ? linkedinAdsBudget / customCostPerMeeting['LinkedIn Ads'] : 0;
     
-    if (budget >= 35000 && budget < 45000) {
-      linkedinAdsMeetings = 2; contentMeetings = 3; baseOutreachMeetings = outreachStrategy === 'agency' ? 10.5 : 7; webinarMeetings = 2;
-    } else if (budget >= 45000) {
-      linkedinAdsMeetings = 2; contentMeetings = 3.5; baseOutreachMeetings = outreachStrategy === 'agency' ? 10.5 : 7; webinarMeetings = 2.5;
-    }
+    const googleRemarketingBudget = customAllocation['Google Remarketing'] || 0;
+    const googleRemarketingMeetings = googleRemarketingBudget > 0 ? googleRemarketingBudget / customCostPerMeeting['Google Remarketing'] : 0;
+    
+    const contentBudget = customAllocation['Content'] || 0;
+    const contentMeetings = contentBudget > 0 ? contentBudget / customCostPerMeeting['Content'] : 0;
+    
+    const webinarBudget = customAllocation['Quarterly Webinar'] || 0;
+    const webinarMeetings = webinarBudget > 0 ? webinarBudget / customCostPerMeeting['Webinar'] : 0;
+    
+    const outreachBudget = customAllocation['Agency Outreach'] || customAllocation['Internal Outreach (Salary + Tools)'] || 0;
+    const outreachMeetingsCost = outreachStrategy === 'agency' ? customCostPerMeeting['Agency Outreach'] : customCostPerMeeting['Internal SDR Outreach'];
+    const outreachMeetings = outreachBudget > 0 ? outreachBudget / outreachMeetingsCost : 0;
 
-    const outreachMedianCost = outreachStrategy === 'agency' ? 850 : 1955;
-    const baseCost = outreachStrategy === 'agency' ? 5500 : 7500;
-    const outreachMeetings = (baseCost / outreachMedianCost) + ((outreachProfiles - 1) * ((outreachStrategy === 'agency' ? baseCost * 0.6 : baseCost * 0.9) / outreachMedianCost));
-
-    const totalMeetingsPerMonth = linkedinAdsMeetings + contentMeetings + outreachMeetings + webinarMeetings;
+    // Total monthly meetings
+    const totalMeetingsPerMonth = linkedinAdsMeetings + googleRemarketingMeetings + contentMeetings + webinarMeetings + outreachMeetings;
     const opportunitiesPerMonth = (totalMeetingsPerMonth * qualificationRate) / 100;
     const closedDealsPerMonth = (opportunitiesPerMonth * closeRate) / 100;
     const meetings12m = Math.round(totalMeetingsPerMonth * 12);
@@ -140,20 +146,11 @@ function GTMCalculator() {
     const deals12m = Math.round((opportunities12m * closeRate) / 100);
     const revenue12m = deals12m * acv;
 
-    const linkedinAdsBudget = customAllocation['LinkedIn Ads'] || 0;
+    // For display purposes (rounded to 1 decimal)
     const linkedinAdsMeetingsActual = linkedinAdsBudget > 0 ? Math.round((linkedinAdsBudget / customCostPerMeeting['LinkedIn Ads']) * 10) / 10 : 0;
-    
-    const googleRemarketingBudget = customAllocation['Google Remarketing'] || 0;
     const googleRemarketingMeetingsActual = googleRemarketingBudget > 0 ? Math.round((googleRemarketingBudget / customCostPerMeeting['Google Remarketing']) * 10) / 10 : 0;
-    
-    const contentBudget = customAllocation['Content'] || 0;
     const contentMeetingsActual = contentBudget > 0 ? Math.round((contentBudget / customCostPerMeeting['Content']) * 10) / 10 : 0;
-    
-    const webinarBudget = customAllocation['Quarterly Webinar'] || 0;
     const webinarMeetingsActual = webinarBudget > 0 ? Math.round((webinarBudget / customCostPerMeeting['Webinar']) * 10) / 10 : 0;
-    
-    const outreachBudget = customAllocation['Agency Outreach'] || customAllocation['Internal Outreach (Salary + Tools)'] || 0;
-    const outreachMeetingsCost = outreachStrategy === 'agency' ? customCostPerMeeting['Agency Outreach'] : customCostPerMeeting['Internal SDR Outreach'];
     const outreachMeetingsActual = outreachBudget > 0 ? Math.round((outreachBudget / outreachMeetingsCost) * 10) / 10 : 0;
 
     return { 
@@ -373,7 +370,7 @@ function GTMCalculator() {
             ),
             editingCostPerMeeting && React.createElement('div', { className: 'bg-blue-50 border border-blue-200 rounded-lg p-4 mb-6' },
               React.createElement('p', { className: 'text-sm font-medium text-slate-900 mb-4' }, 'Edit Cost per Meeting'),
-              React.createElement('div', { className: 'space-y-3' },
+              React.createElement('div', { className: 'space-y-3 mb-4' },
                 Object.keys(customCostPerMeeting).map(channel =>
                   React.createElement('div', { key: channel },
                     React.createElement('label', { className: 'block text-sm font-medium text-slate-700 mb-1' }, channel),
@@ -390,7 +387,11 @@ function GTMCalculator() {
                     })
                   )
                 )
-              )
+              ),
+              React.createElement('button', {
+                onClick: () => setEditingCostPerMeeting(false),
+                className: 'w-full py-2 bg-blue-600 hover:bg-blue-700 text-white rounded-lg text-sm font-medium transition'
+              }, 'Save Changes')
             ),
             React.createElement('div', { className: 'space-y-3 mb-6' },
               React.createElement('div', { className: 'flex justify-between items-center p-3 bg-slate-50 rounded-lg' },
