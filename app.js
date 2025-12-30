@@ -43,13 +43,21 @@ function GTMCalculator() {
       }
       
       if (outreachStrategy === 'agency') {
+        // Base costs per budget tier for 1 SDR
         const baseCosts = { 20000: 5500, 30000: 8800, 40000: 10450, 50000: 13750 };
-        allocations[tier]['Agency Outreach'] = baseCosts[tier] || 5500;
+        const baseCost = baseCosts[tier] || 5500;
+        // Scale with number of profiles: base + (profiles - 1) * 60% of base
+        const scaledCost = Math.round(baseCost + ((outreachProfiles - 1) * baseCost * 0.6));
+        allocations[tier]['Agency Outreach'] = scaledCost;
         delete allocations[tier]['Internal Outreach (Salary + Tools)'];
       } else {
         delete allocations[tier]['Agency Outreach'];
+        // Base costs per budget tier for 1 SDR
         const baseCosts = { 20000: 7500, 30000: 10000, 40000: 12500, 50000: 15000 };
-        allocations[tier]['Internal Outreach (Salary + Tools)'] = baseCosts[tier] || 7500;
+        const baseCost = baseCosts[tier] || 7500;
+        // Scale with number of profiles: base + (profiles - 1) * 90% of base
+        const scaledCost = Math.round(baseCost + ((outreachProfiles - 1) * baseCost * 0.9));
+        allocations[tier]['Internal Outreach (Salary + Tools)'] = scaledCost;
       }
     }
     return allocations;
