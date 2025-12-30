@@ -159,7 +159,7 @@ function GTMCalculator() {
       React.createElement('div', { className: 'mb-6' },
         React.createElement('h1', { className: 'text-3xl font-bold text-slate-900 mb-1' }, 'GTM Budget Calculator'),
         React.createElement('p', { className: 'text-sm text-slate-600 mb-2' }, 'Adjust your budget allocation and see real-time impact on pipeline'),
-        React.createElement('p', { className: 'text-xs text-slate-700 italic' }, 'Recommended Strategy: Combine Webinar + Agency/SDR Outreach for direct pipeline generation while maintaining LinkedIn Ads + Content for long-term brand building and lead nurturing.')
+        React.createElement('p', { className: 'text-xs text-slate-700 italic' }, 'Recommended Strategy: Combine Webinar + Agency/SDR Outreach for direct pipeline generation while maintaining LinkedIn Ads + Google Remarketing + Content for long-term brand building and lead nurturing.')
       ),
       React.createElement('div', { className: 'grid grid-cols-1 lg:grid-cols-4 gap-8' },
         React.createElement('div', { className: 'lg:col-span-1' },
@@ -395,6 +395,7 @@ function GTMCalculator() {
                 React.createElement('ul', { className: 'space-y-2 text-sm text-slate-700' },
                   React.createElement('li', null, '• ', React.createElement('span', { className: 'font-semibold' }, 'Quarterly Webinar'), ' delivers the lowest cost per meeting at $750, making it the most efficient channel for consistent, high-quality pipeline generation'),
                   React.createElement('li', null, '• ', React.createElement('span', { className: 'font-semibold' }, 'Agency Outreach'), ' is a close second at $850 median with predictable volume and direct control over messaging'),
+                  React.createElement('li', null, '• ', React.createElement('span', { className: 'font-semibold' }, 'Google Remarketing'), ' serves as a mid-funnel reinforcement channel at ~$2,500 per meeting, effective for recapturing intent but insufficient as a standalone pipeline driver.'),
                   React.createElement('li', null, '• ', React.createElement('span', { className: 'font-semibold' }, 'Internal SDR outreach'), ' costs ~$1,955 per meeting due to salary costs, intent tools, data, ramp-up, and high turnover.'),
                   React.createElement('li', null, '• ', React.createElement('span', { className: 'font-semibold' }, 'LinkedIn Ads'), ' at $7,000/meeting serves as a nurture and brand-building channel rather than direct pipeline generation'),
                   React.createElement('li', null, '• ', React.createElement('span', { className: 'font-semibold' }, 'Content/Organic'), ' at $3,750/meeting builds long-term authority and supports the full sales funnel')
