@@ -44,14 +44,22 @@ function GTMCalculator() {
       
       if (outreachStrategy === 'agency') {
         // $5,500 base + $3,300 per additional profile
-        const scaledCost = Math.round(5500 + ((outreachProfiles - 1) * 3300));
-        allocations[tier]['Agency Outreach'] = scaledCost;
+        if (outreachProfiles === 0) {
+          allocations[tier]['Agency Outreach'] = 0;
+        } else {
+          const scaledCost = Math.round(5500 + ((outreachProfiles - 1) * 3300));
+          allocations[tier]['Agency Outreach'] = scaledCost;
+        }
         delete allocations[tier]['Internal Outreach (Salary + Tools)'];
       } else {
         delete allocations[tier]['Agency Outreach'];
         // $7,500 base + $6,750 per additional profile
-        const scaledCost = Math.round(7500 + ((outreachProfiles - 1) * 6750));
-        allocations[tier]['Internal Outreach (Salary + Tools)'] = scaledCost;
+        if (outreachProfiles === 0) {
+          allocations[tier]['Internal Outreach (Salary + Tools)'] = 0;
+        } else {
+          const scaledCost = Math.round(7500 + ((outreachProfiles - 1) * 6750));
+          allocations[tier]['Internal Outreach (Salary + Tools)'] = scaledCost;
+        }
       }
     }
     return allocations;
@@ -281,11 +289,12 @@ function GTMCalculator() {
             ),
             React.createElement('div', { className: 'mb-4' },
               React.createElement('label', { className: 'block text-sm font-medium text-slate-700 mb-2' }, 'SDR Profiles'),
-              React.createElement('input', { type: 'number', value: outreachProfiles, onChange: (e) => setOutreachProfiles(Math.max(1, Number(e.target.value))), min: '1', className: 'w-full px-3 py-2 border border-slate-300 rounded-lg text-sm' }),
+              React.createElement('input', { type: 'number', value: outreachProfiles, onChange: (e) => setOutreachProfiles(Math.max(0, Number(e.target.value))), min: '0', className: 'w-full px-3 py-2 border border-slate-300 rounded-lg text-sm' }),
               React.createElement('p', { className: 'text-xs text-slate-500 mt-1' },
+                outreachProfiles === 0 ? 'No outreach profiles selected' :
                 outreachStrategy === 'agency' 
-                  ? '+60% per additional profile ($3,300/month)'
-                  : '+90% per additional profile ($6,750/month)'
+                  ? `Base: $5,500 + (${outreachProfiles - 1} × $3,300/month)`
+                  : `Base: $7,500 + (${outreachProfiles - 1} × $6,750/month)`
               )
             ),
             budgetDifference !== 0 && React.createElement('div', { className: `mb-4 p-3 rounded-lg text-sm ${budgetDifference > 0 ? 'bg-red-50 text-red-800' : 'bg-green-50 text-green-800'}` },
@@ -408,8 +417,8 @@ function GTMCalculator() {
                 React.createElement('p', { className: 'text-sm font-semibold text-slate-900 mb-2' }, 'Recommended Budget Allocation by Tier:'),
                 React.createElement('ul', { className: 'space-y-1 text-sm text-slate-700' },
                   React.createElement('li', null, '• ', React.createElement('span', { className: 'font-semibold' }, '$20K:'), ' Foundational GTM with 1 SDR/Agency Outreach profile, webinars, and content optimization'),
-                  React.createElement('li', null, '• ', React.createElement('span', { className: 'font-semibold' }, '$30K:'), ' Increased content production, expanded webinar cadence, and buffer for testing new channels'),
-                  React.createElement('li', null, '• ', React.createElement('span', { className: 'font-semibold' }, '$40K:'), ' Scale to 2 SDR profiles, increase webinar frequency, strengthen LinkedIn paid presence and organic content'),
+                  React.createElement('li', null, '• ', React.createElement('span', { className: 'font-semibold' }, '$30K:'), ' Scale to 2 SDR profiles, increase content production, add Google remarketing, expand webinar investment, and add buffer for testing new channels'),
+                  React.createElement('li', null, '• ', React.createElement('span', { className: 'font-semibold' }, '$40K:'), ' Scale to 2.5 SDR profiles, increase webinar investment, strengthen LinkedIn paid presence, organic content and Google remarketing.'),
                   React.createElement('li', null, '• ', React.createElement('span', { className: 'font-semibold' }, '$50K:'), ' Full SDR team (3 profiles), premium content program, sustained brand building across all channels with experimental budget')
                 )
               )
