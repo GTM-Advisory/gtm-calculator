@@ -234,7 +234,7 @@ function GTMCalculator() {
             React.createElement('h2', { className: 'text-xl font-semibold text-slate-900 mb-6' }, 'Your Inputs'),
             React.createElement('div', { className: 'mb-4 flex flex-col gap-3' },
               React.createElement('div', null,
-                React.createElement('label', { className: 'block text-sm font-medium text-slate-700 mb-2' }, 'ACV'),
+                React.createElement('label', { className: 'block text-sm font-medium text-slate-700 mb-2' }, 'ARR'),
                 React.createElement('input', { type: 'number', value: acv, onChange: (e) => setAcv(Number(e.target.value)), className: 'w-full px-3 py-2 border border-slate-300 rounded-lg text-sm' })
               ),
               React.createElement('div', null,
@@ -283,7 +283,7 @@ function GTMCalculator() {
                 React.createElement('p', { className: 'text-2xl font-bold text-purple-600' }, calculations.deals12m)
               ),
               React.createElement('div', { className: 'bg-white rounded p-3 text-center' },
-                React.createElement('p', { className: 'text-xs text-slate-600 font-medium' }, 'Revenue (12mo)'),
+                React.createElement('p', { className: 'text-xs text-slate-600 font-medium' }, 'ARR (12mo)'),
                 React.createElement('p', { className: 'text-lg font-bold text-amber-600' }, formatCurrency(calculations.revenue12m))
               )
             ),
