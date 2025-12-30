@@ -45,7 +45,9 @@ function GTMCalculator() {
       
       if (paidMediaStrategy === 'agency') {
         const linkedinBudget = allocations[tier]['LinkedIn Ads'];
-        const agencyFee = Math.max(2500, Math.round(linkedinBudget * 0.15));
+        const googleRemarketingBudget = allocations[tier]['Google Remarketing'] || 0;
+        const totalPaidMedia = linkedinBudget + googleRemarketingBudget;
+        const agencyFee = Math.max(2500, Math.round(totalPaidMedia * 0.15));
         allocations[tier]['Agency Fees (Paid + Content)'] = agencyFee;
       } else {
         delete allocations[tier]['Agency Fees (Paid + Content)'];
