@@ -173,7 +173,8 @@ function GTMCalculator() {
     };
   }, [acv, closeRate, qualificationRate, outreachStrategy, outreachProfiles, budget, customAllocation, customCostPerMeeting]);
 
-  const roiValue = ((((calculations.deals12m * acv * 3) - (calculations.monthlyBurn * 12)) / (calculations.monthlyBurn * 12)) * 100);
+  const roiValue3yr = ((((calculations.revenue12m * 3) - (calculations.monthlyBurn * 12)) / (calculations.monthlyBurn * 12)) * 100);
+  const roi18mo = ((((calculations.revenue12m * 1.5) - (calculations.monthlyBurn * 12)) / (calculations.monthlyBurn * 12)) * 100);
 
   const getChannelRankings = () => {
     const channels = [
@@ -287,18 +288,20 @@ function GTMCalculator() {
                 React.createElement('p', { className: 'text-lg font-bold text-amber-600' }, formatCurrency(calculations.revenue12m))
               )
             ),
-            React.createElement('div', { className: 'mt-4 pt-4 border-t border-blue-200 grid grid-cols-3 gap-3 text-center text-sm' },
+            React.createElement('div', { className: 'mt-4 pt-4 border-t border-blue-200 grid grid-cols-4 gap-3 text-center text-sm' },
               React.createElement('div', null,
                 React.createElement('p', { className: 'text-slate-600' }, '12mo Spend'),
                 React.createElement('p', { className: 'font-bold text-slate-900' }, formatCurrency(calculations.monthlyBurn * 12))
               ),
               React.createElement('div', null,
-                React.createElement('p', { className: 'text-slate-600' }, '3yr LTV'),
-                React.createElement('p', { className: 'font-bold text-green-600' }, formatCurrency(Math.round(calculations.deals12m / 12) * acv * 3))
+                React.createElement('p', { className: 'text-slate-600' }, '18mo LTV'),
+                React.createElement('p', { className: 'font-bold text-green-600' }, formatCurrency(calculations.revenue12m * 1.5)),
+                React.createElement('p', { className: `text-xs font-semibold ${roi18mo >= 0 ? 'text-green-600' : 'text-red-600'}` }, `ROI: ${roi18mo >= 0 ? '+' : ''}${roi18mo.toFixed(0)}%`)
               ),
               React.createElement('div', null,
-                React.createElement('p', { className: 'text-slate-600' }, 'ROI'),
-                React.createElement('p', { className: `font-bold ${roiValue >= 0 ? 'text-green-600' : 'text-red-600'}` }, roiValue >= 0 ? `${roiValue.toFixed(0)}%` : `(${Math.abs(roiValue).toFixed(0)}%)`)
+                React.createElement('p', { className: 'text-slate-600' }, '3yr LTV'),
+                React.createElement('p', { className: 'font-bold text-green-600' }, formatCurrency(calculations.revenue12m * 3)),
+                React.createElement('p', { className: `text-xs font-semibold ${roiValue3yr >= 0 ? 'text-green-600' : 'text-red-600'}` }, `ROI: ${roiValue3yr >= 0 ? '+' : ''}${roiValue3yr.toFixed(0)}%`)
               )
             )
           ),
