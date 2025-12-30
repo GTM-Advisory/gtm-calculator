@@ -209,7 +209,7 @@ function GTMCalculator() {
             React.createElement('h3', { className: 'text-lg font-semibold text-slate-900 mb-4' }, `Budget Allocation (${formatCurrency(allocationTotal)}/month)`),
             React.createElement('div', { className: 'grid grid-cols-2 gap-4 mb-6 pb-6 border-b border-slate-200' },
               React.createElement('div', null,
-                React.createElement('label', { className: 'block text-sm font-medium text-slate-700 mb-3' }, 'Paid Media Strategy'),
+                React.createElement('p', { className: 'text-sm font-medium text-slate-700 mb-3' }, 'Paid Media Strategy'),
                 React.createElement('div', { className: 'space-y-2' },
                   React.createElement('button', {
                     onClick: () => setPaidMediaStrategy('agency'),
@@ -228,39 +228,38 @@ function GTMCalculator() {
                 )
               ),
               React.createElement('div', null,
-                React.createElement('label', { className: 'block text-sm font-medium text-slate-700 mb-3' }, 'Outreach Strategy'),
+                React.createElement('p', { className: 'text-sm font-medium text-slate-700 mb-3' }, 'Outreach Strategy'),
                 React.createElement('div', { className: 'space-y-2' },
                   React.createElement('button', {
                     onClick: () => setOutreachStrategy('agency'),
                     className: `w-full p-3 rounded-lg text-sm font-medium transition border-2 ${outreachStrategy === 'agency' ? 'border-blue-500 bg-blue-50 text-blue-700' : 'border-slate-200 bg-white text-slate-700 hover:border-slate-300'}`
                   },
                     React.createElement('div', { className: 'font-semibold' }, 'Agency'),
-                    React.createElement('div', { className: 'text-xs mt-1' }, '$5,500/month + $3,300/month per additional profile')
+                    React.createElement('div', { className: 'text-xs mt-1' }, '$5,500/month + $3,300/month per profile')
                   ),
                   React.createElement('button', {
                     onClick: () => setOutreachStrategy('internal'),
                     className: `w-full p-3 rounded-lg text-sm font-medium transition border-2 ${outreachStrategy === 'internal' ? 'border-blue-500 bg-blue-50 text-blue-700' : 'border-slate-200 bg-white text-slate-700 hover:border-slate-300'}`
                   },
                     React.createElement('div', { className: 'font-semibold' }, 'Internal Resource'),
-                    React.createElement('div', { className: 'text-xs mt-1' }, '$7,500/month + $6,750/month per additional profile')
+                    React.createElement('div', { className: 'text-xs mt-1' }, '$7,500/month + $6,750/month per profile')
                   )
                 )
               )
             ),
-              React.createElement('div', null,
-                React.createElement('label', { className: 'block text-sm font-medium text-slate-700 mb-2' }, 'SDR Profiles'),
-                React.createElement('input', { type: 'number', value: outreachProfiles, onChange: (e) => setOutreachProfiles(Math.max(1, Number(e.target.value))), min: '1', className: 'w-full px-3 py-2 border border-slate-300 rounded-lg text-sm' }),
-                React.createElement('p', { className: 'text-xs text-slate-500 mt-1' },
-                  outreachStrategy === 'agency' 
-                    ? '+60% per additional profile ($3,300/month)'
-                    : '+90% per additional profile ($6,750/month)'
-                )
+            React.createElement('div', { className: 'mb-4' },
+              React.createElement('label', { className: 'block text-sm font-medium text-slate-700 mb-2' }, 'SDR Profiles'),
+              React.createElement('input', { type: 'number', value: outreachProfiles, onChange: (e) => setOutreachProfiles(Math.max(1, Number(e.target.value))), min: '1', className: 'w-full px-3 py-2 border border-slate-300 rounded-lg text-sm' }),
+              React.createElement('p', { className: 'text-xs text-slate-500 mt-1' },
+                outreachStrategy === 'agency' 
+                  ? '+60% per additional profile ($3,300/month)'
+                  : '+90% per additional profile ($6,750/month)'
               )
             ),
-            budgetDifference !== 0 && React.createElement('div', { className: `mt-4 p-3 rounded-lg text-sm ${budgetDifference > 0 ? 'bg-red-50 text-red-800' : 'bg-green-50 text-green-800'}` },
+            budgetDifference !== 0 && React.createElement('div', { className: `mb-4 p-3 rounded-lg text-sm ${budgetDifference > 0 ? 'bg-red-50 text-red-800' : 'bg-green-50 text-green-800'}` },
               budgetDifference > 0 ? `Over budget by ${formatCurrency(budgetDifference)}` : `Under budget by ${formatCurrency(Math.abs(budgetDifference))}`
             ),
-            React.createElement('div', { className: 'mt-4 space-y-2' },
+            React.createElement('div', { className: 'space-y-2' },
               Object.keys(customAllocation)
                 .sort((a, b) => customAllocation[b] - customAllocation[a])
                 .map((channel) =>
