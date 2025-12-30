@@ -121,8 +121,33 @@ function GTMCalculator() {
     const deals12m = Math.round((opportunities12m * closeRate) / 100);
     const revenue12m = deals12m * acv;
 
-    return { meetings12m, opportunities12m, deals12m, revenue12m, monthlyBurn: budget };
-  }, [acv, closeRate, qualificationRate, outreachStrategy, outreachProfiles, budget]);
+    // Calculate meetings per channel based on actual allocation
+    const linkedinAdsBudget = customAllocation['LinkedIn Ads'] || 0;
+    const linkedinAdsMeetingsActual = linkedinAdsBudget > 0 ? Math.round((linkedinAdsBudget / 7000) * 10) / 10 : 0;
+    
+    const contentBudget = customAllocation['Content'] || 0;
+    const contentMeetingsActual = contentBudget > 0 ? Math.round((contentBudget / 3750) * 10) / 10 : 0;
+    
+    const webinarBudget = customAllocation['Quarterly Webinar'] || 0;
+    const webinarMeetingsActual = webinarBudget > 0 ? Math.round((webinarBudget / 750) * 10) / 10 : 0;
+    
+    const outreachBudget = customAllocation['Agency Outreach'] || customAllocation['Internal Outreach (Salary + Tools)'] || 0;
+    const outreachMeetingsCost = outreachStrategy === 'agency' ? 850 : 1955;
+    const outreachMeetingsActual = outreachBudget > 0 ? Math.round((outreachBudget / outreachMeetingsCost) * 10) / 10 : 0;
+
+    return { 
+      meetings12m, 
+      opportunities12m, 
+      deals12m, 
+      revenue12m, 
+      monthlyBurn: budget,
+      linkedinAdsMeetingsActual,
+      contentMeetingsActual,
+      webinarMeetingsActual,
+      outreachMeetingsActual,
+      outreachMeetingsCost
+    };
+  }, [acv, closeRate, qualificationRate, outreachStrategy, outreachProfiles, budget, customAllocation]);
 
   const roiValue = ((((Math.round(calculations.deals12m / 12) * acv * 3) - (calculations.monthlyBurn * 12)) / (calculations.monthlyBurn * 12)) * 100);
 
@@ -210,23 +235,23 @@ function GTMCalculator() {
             React.createElement('div', { className: 'grid grid-cols-2 gap-4' },
               React.createElement('div', { className: 'bg-slate-50 rounded p-3' },
                 React.createElement('p', { className: 'text-xs text-slate-600 font-medium mb-1' }, 'LinkedIn Ads'),
-                React.createElement('p', { className: 'text-2xl font-bold text-blue-600' }, '~1-2'),
-                React.createElement('p', { className: 'text-xs text-slate-500 mt-1' }, '$7,000 per meeting')
+                React.createElement('p', { className: 'text-2xl font-bold text-blue-600' }, calculations.linkedinAdsMeetingsActual),
+                React.createElement('p', { className: 'text-xs text-slate-500 mt-1' }, `${formatCurrency(customAllocation['LinkedIn Ads'] || 0)}`)
               ),
               React.createElement('div', { className: 'bg-slate-50 rounded p-3' },
                 React.createElement('p', { className: 'text-xs text-slate-600 font-medium mb-1' }, 'Content/Organic'),
-                React.createElement('p', { className: 'text-2xl font-bold text-emerald-600' }, '~2-3'),
-                React.createElement('p', { className: 'text-xs text-slate-500 mt-1' }, '$3,750 per meeting')
+                React.createElement('p', { className: 'text-2xl font-bold text-emerald-600' }, calculations.contentMeetingsActual),
+                React.createElement('p', { className: 'text-xs text-slate-500 mt-1' }, `${formatCurrency(customAllocation['Content'] || 0)}`)
               ),
               React.createElement('div', { className: 'bg-slate-50 rounded p-3' },
                 React.createElement('p', { className: 'text-xs text-slate-600 font-medium mb-1' }, 'Outreach'),
-                React.createElement('p', { className: 'text-2xl font-bold text-purple-600' }, outreachStrategy === 'agency' ? '~6-10' : '~4-7'),
-                React.createElement('p', { className: 'text-xs text-slate-500 mt-1' }, outreachStrategy === 'agency' ? '$850 per meeting' : '$1,955 per meeting')
+                React.createElement('p', { className: 'text-2xl font-bold text-purple-600' }, calculations.outreachMeetingsActual),
+                React.createElement('p', { className: 'text-xs text-slate-500 mt-1' }, `${formatCurrency(customAllocation['Agency Outreach'] || customAllocation['Internal Outreach (Salary + Tools)'] || 0)}`)
               ),
               React.createElement('div', { className: 'bg-slate-50 rounded p-3' },
                 React.createElement('p', { className: 'text-xs text-slate-600 font-medium mb-1' }, 'Webinar'),
-                React.createElement('p', { className: 'text-2xl font-bold text-amber-600' }, '~2'),
-                React.createElement('p', { className: 'text-xs text-slate-500 mt-1' }, '$750 per meeting')
+                React.createElement('p', { className: 'text-2xl font-bold text-amber-600' }, calculations.webinarMeetingsActual),
+                React.createElement('p', { className: 'text-xs text-slate-500 mt-1' }, `${formatCurrency(customAllocation['Quarterly Webinar'] || 0)}`)
               )
             )
           ),
