@@ -170,6 +170,41 @@ function GTMCalculator() {
           )
         ),
         React.createElement('div', { className: 'lg:col-span-3' },
+          React.createElement('div', { className: 'bg-gradient-to-r from-blue-50 to-indigo-50 rounded-xl shadow-lg p-6 border border-blue-200 mb-8' },
+            React.createElement('h3', { className: 'text-lg font-semibold text-slate-900 mb-4' }, '12-Month Impact'),
+            React.createElement('div', { className: 'grid grid-cols-4 gap-3' },
+              React.createElement('div', { className: 'bg-white rounded p-3 text-center' },
+                React.createElement('p', { className: 'text-xs text-slate-600 font-medium' }, 'Meetings'),
+                React.createElement('p', { className: 'text-2xl font-bold text-blue-600' }, Math.round(calculations.meetings12m / 12))
+              ),
+              React.createElement('div', { className: 'bg-white rounded p-3 text-center' },
+                React.createElement('p', { className: 'text-xs text-slate-600 font-medium' }, 'Opps'),
+                React.createElement('p', { className: 'text-2xl font-bold text-emerald-600' }, Math.round(calculations.opportunities12m / 12))
+              ),
+              React.createElement('div', { className: 'bg-white rounded p-3 text-center' },
+                React.createElement('p', { className: 'text-xs text-slate-600 font-medium' }, 'Deals'),
+                React.createElement('p', { className: 'text-2xl font-bold text-purple-600' }, Math.round(calculations.deals12m / 12))
+              ),
+              React.createElement('div', { className: 'bg-white rounded p-3 text-center' },
+                React.createElement('p', { className: 'text-xs text-slate-600 font-medium' }, 'Revenue'),
+                React.createElement('p', { className: 'text-lg font-bold text-amber-600' }, formatCurrency(Math.round(calculations.deals12m / 12) * acv))
+              )
+            ),
+            React.createElement('div', { className: 'mt-4 pt-4 border-t border-blue-200 grid grid-cols-3 gap-3 text-center text-sm' },
+              React.createElement('div', null,
+                React.createElement('p', { className: 'text-slate-600' }, '12mo Spend'),
+                React.createElement('p', { className: 'font-bold text-slate-900' }, formatCurrency(calculations.monthlyBurn * 12))
+              ),
+              React.createElement('div', null,
+                React.createElement('p', { className: 'text-slate-600' }, '3yr LTV'),
+                React.createElement('p', { className: 'font-bold text-green-600' }, formatCurrency(Math.round(calculations.deals12m / 12) * acv * 3))
+              ),
+              React.createElement('div', null,
+                React.createElement('p', { className: 'text-slate-600' }, 'ROI'),
+                React.createElement('p', { className: `font-bold ${roiValue >= 0 ? 'text-green-600' : 'text-red-600'}` }, roiValue >= 0 ? `${roiValue.toFixed(0)}%` : `(${Math.abs(roiValue).toFixed(0)}%)`)
+              )
+            )
+          ),
           React.createElement('div', { className: 'bg-white rounded-xl shadow-lg p-6 mb-8' },
             React.createElement('h3', { className: 'text-lg font-semibold text-slate-900 mb-4' }, `Budget Allocation (${formatCurrency(allocationTotal)}/month)`),
             React.createElement('div', { className: 'space-y-4' },
@@ -230,41 +265,6 @@ function GTMCalculator() {
                     })
                   )
                 )
-            )
-          ),
-          React.createElement('div', { className: 'bg-gradient-to-r from-blue-50 to-indigo-50 rounded-xl shadow-lg p-6 border border-blue-200' },
-            React.createElement('h3', { className: 'text-lg font-semibold text-slate-900 mb-4' }, '12-Month Impact'),
-            React.createElement('div', { className: 'grid grid-cols-4 gap-3' },
-              React.createElement('div', { className: 'bg-white rounded p-3 text-center' },
-                React.createElement('p', { className: 'text-xs text-slate-600 font-medium' }, 'Meetings'),
-                React.createElement('p', { className: 'text-2xl font-bold text-blue-600' }, Math.round(calculations.meetings12m / 12))
-              ),
-              React.createElement('div', { className: 'bg-white rounded p-3 text-center' },
-                React.createElement('p', { className: 'text-xs text-slate-600 font-medium' }, 'Opps'),
-                React.createElement('p', { className: 'text-2xl font-bold text-emerald-600' }, Math.round(calculations.opportunities12m / 12))
-              ),
-              React.createElement('div', { className: 'bg-white rounded p-3 text-center' },
-                React.createElement('p', { className: 'text-xs text-slate-600 font-medium' }, 'Deals'),
-                React.createElement('p', { className: 'text-2xl font-bold text-purple-600' }, Math.round(calculations.deals12m / 12))
-              ),
-              React.createElement('div', { className: 'bg-white rounded p-3 text-center' },
-                React.createElement('p', { className: 'text-xs text-slate-600 font-medium' }, 'Revenue'),
-                React.createElement('p', { className: 'text-lg font-bold text-amber-600' }, formatCurrency(Math.round(calculations.deals12m / 12) * acv))
-              )
-            ),
-            React.createElement('div', { className: 'mt-4 pt-4 border-t border-blue-200 grid grid-cols-3 gap-3 text-center text-sm' },
-              React.createElement('div', null,
-                React.createElement('p', { className: 'text-slate-600' }, '12mo Spend'),
-                React.createElement('p', { className: 'font-bold text-slate-900' }, formatCurrency(calculations.monthlyBurn * 12))
-              ),
-              React.createElement('div', null,
-                React.createElement('p', { className: 'text-slate-600' }, '3yr LTV'),
-                React.createElement('p', { className: 'font-bold text-green-600' }, formatCurrency(Math.round(calculations.deals12m / 12) * acv * 3))
-              ),
-              React.createElement('div', null,
-                React.createElement('p', { className: 'text-slate-600' }, 'ROI'),
-                React.createElement('p', { className: `font-bold ${roiValue >= 0 ? 'text-green-600' : 'text-red-600'}` }, roiValue >= 0 ? `${roiValue.toFixed(0)}%` : `(${Math.abs(roiValue).toFixed(0)}%)`)
-              )
             )
           )
         )
