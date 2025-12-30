@@ -170,6 +170,52 @@ function GTMCalculator() {
 
   const roiValue = ((((Math.round(calculations.deals12m / 12) * acv * 3) - (calculations.monthlyBurn * 12)) / (calculations.monthlyBurn * 12)) * 100);
 
+  const getChannelRankings = () => {
+    const channels = [
+      { name: 'Quarterly Webinar', cost: customCostPerMeeting['Webinar'] },
+      { name: 'Google Remarketing', cost: customCostPerMeeting['Google Remarketing'] },
+      { name: 'Agency Outreach', cost: customCostPerMeeting['Agency Outreach'] },
+      { name: 'Content/Organic', cost: customCostPerMeeting['Content'] },
+      { name: 'Internal SDR Outreach', cost: customCostPerMeeting['Internal SDR Outreach'] },
+      { name: 'LinkedIn Ads', cost: customCostPerMeeting['LinkedIn Ads'] }
+    ];
+    return channels.sort((a, b) => a.cost - b.cost);
+  };
+
+  const channelRankings = getChannelRankings();
+
+  const generateKeyInsights = () => {
+    const insights = [];
+    
+    insights.push(
+      `${channelRankings[0].name} is the most cost-efficient channel at $${channelRankings[0].cost} per meeting, making it the top priority for direct pipeline generation.`
+    );
+    
+    insights.push(
+      `${channelRankings[1].name} is the second most efficient at $${channelRankings[1].cost} per meeting, providing a strong secondary pipeline source.`
+    );
+    
+    insights.push(
+      `${channelRankings[2].name} at $${channelRankings[2].cost} per meeting offers good efficiency and can be scaled to increase volume.`
+    );
+    
+    insights.push(
+      `${channelRankings[3].name} at $${channelRankings[3].cost} per meeting builds long-term authority and supports the full sales funnel with sustained value.`
+    );
+    
+    insights.push(
+      `${channelRankings[4].name} at $${channelRankings[4].cost} per meeting requires higher investment but provides personalization and control over messaging.`
+    );
+    
+    insights.push(
+      `${channelRankings[5].name} at $${channelRankings[5].cost} per meeting serves as a nurture and brand-building channel rather than direct pipeline generation.`
+    );
+    
+    return insights;
+  };
+
+  const keyInsights = generateKeyInsights();
+
   return React.createElement('div', { className: 'min-h-screen bg-gradient-to-br from-slate-50 to-slate-100 p-8' },
     React.createElement('div', { className: 'max-w-7xl mx-auto' },
       React.createElement('div', { className: 'mb-6' },
@@ -361,12 +407,28 @@ function GTMCalculator() {
                 React.createElement('p', { className: 'text-xs text-slate-500 mt-1' }, `${formatCurrency(customAllocation['Quarterly Webinar'] || 0)}`)
               )
             ),
-            React.createElement('div', { className: 'flex justify-between items-center mb-4' },
+            React.createElement('div', { className: 'flex justify-between items-center mb-4 gap-2' },
               React.createElement('h3', { className: 'text-lg font-semibold text-slate-900' }, 'Summary: Cost per Meeting by Channel'),
-              React.createElement('button', {
-                onClick: () => setEditingCostPerMeeting(!editingCostPerMeeting),
-                className: `px-3 py-1 rounded text-sm font-medium transition ${editingCostPerMeeting ? 'bg-red-100 text-red-700 hover:bg-red-200' : 'bg-blue-100 text-blue-700 hover:bg-blue-200'}`
-              }, editingCostPerMeeting ? 'Cancel' : 'Edit')
+              React.createElement('div', { className: 'flex gap-2' },
+                React.createElement('button', {
+                  onClick: () => setEditingCostPerMeeting(!editingCostPerMeeting),
+                  className: `px-3 py-1 rounded text-sm font-medium transition ${editingCostPerMeeting ? 'bg-red-100 text-red-700 hover:bg-red-200' : 'bg-blue-100 text-blue-700 hover:bg-blue-200'}`
+                }, editingCostPerMeeting ? 'Cancel' : 'Edit'),
+                React.createElement('button', {
+                  onClick: () => {
+                    setCustomCostPerMeeting({
+                      'LinkedIn Ads': 5000,
+                      'Google Remarketing': 2500,
+                      'Agency Outreach': 850,
+                      'Content': 3750,
+                      'Webinar': 750,
+                      'Internal SDR Outreach': 1955
+                    });
+                    setEditingCostPerMeeting(false);
+                  },
+                  className: 'px-3 py-1 rounded text-sm font-medium transition bg-slate-100 text-slate-700 hover:bg-slate-200'
+                }, 'Reset')
+              )
             ),
             editingCostPerMeeting && React.createElement('div', { className: 'bg-blue-50 border border-blue-200 rounded-lg p-4 mb-6' },
               React.createElement('p', { className: 'text-sm font-medium text-slate-900 mb-4' }, 'Edit Cost per Meeting'),
@@ -436,12 +498,9 @@ function GTMCalculator() {
               React.createElement('div', null,
                 React.createElement('p', { className: 'text-sm font-semibold text-slate-900 mb-2' }, 'Key Insights:'),
                 React.createElement('ul', { className: 'space-y-2 text-sm text-slate-700' },
-                  React.createElement('li', null, '• ', React.createElement('span', { className: 'font-semibold' }, 'Quarterly Webinar'), ' delivers the lowest cost per meeting at $750, making it the most efficient channel for consistent, high-quality pipeline generation'),
-                  React.createElement('li', null, '• ', React.createElement('span', { className: 'font-semibold' }, 'Agency Outreach'), ' is a close second at $850 median with predictable volume and direct control over messaging'),
-                  React.createElement('li', null, '• ', React.createElement('span', { className: 'font-semibold' }, 'Google Remarketing'), ' serves as a mid-funnel reinforcement channel at ~$2,500 per meeting, effective for recapturing intent but insufficient as a standalone pipeline driver.'),
-                  React.createElement('li', null, '• ', React.createElement('span', { className: 'font-semibold' }, 'Internal SDR outreach'), ' costs ~$1,955 per meeting due to salary costs, intent tools, data, ramp-up, and high turnover.'),
-                  React.createElement('li', null, '• ', React.createElement('span', { className: 'font-semibold' }, 'LinkedIn Ads'), ' at $7,000/meeting serves as a nurture and brand-building channel rather than direct pipeline generation'),
-                  React.createElement('li', null, '• ', React.createElement('span', { className: 'font-semibold' }, 'Content/Organic'), ' at $3,750/meeting builds long-term authority and supports the full sales funnel')
+                  keyInsights.map((insight, idx) =>
+                    React.createElement('li', { key: idx }, '• ', insight)
+                  )
                 )
               ),
               React.createElement('div', { className: 'pt-4 border-t border-slate-200' },
