@@ -293,7 +293,7 @@ function GTMCalculator() {
             ),
             React.createElement('div', { className: 'space-y-2' },
               Object.keys(customAllocation)
-                .sort((a, b) => customAllocation[b] - customAllocation[a])
+                .sort()
                 .map((channel) =>
                   React.createElement('div', { key: channel },
                     React.createElement('div', { className: 'flex justify-between text-sm mb-1' },
@@ -304,6 +304,7 @@ function GTMCalculator() {
                       type: 'range',
                       min: '0',
                       max: '100',
+                      step: '0.1',
                       value: allocationPercentages[channel] || 0,
                       onChange: (e) => {
                         const newPercentages = { ...allocationPercentages };
