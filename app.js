@@ -207,7 +207,7 @@ function GTMCalculator() {
           ),
           React.createElement('div', { className: 'bg-white rounded-xl shadow-lg p-6 mb-8' },
             React.createElement('h3', { className: 'text-lg font-semibold text-slate-900 mb-4' }, `Budget Allocation (${formatCurrency(allocationTotal)}/month)`),
-            React.createElement('div', { className: 'space-y-4 mb-6 pb-6 border-b border-slate-200' },
+            React.createElement('div', { className: 'grid grid-cols-2 gap-4 mb-6 pb-6 border-b border-slate-200' },
               React.createElement('div', null,
                 React.createElement('label', { className: 'block text-sm font-medium text-slate-700 mb-3' }, 'Paid Media Strategy'),
                 React.createElement('div', { className: 'space-y-2' },
@@ -245,7 +245,8 @@ function GTMCalculator() {
                     React.createElement('div', { className: 'text-xs mt-1' }, '$7,500/month + $6,750/month per additional profile')
                   )
                 )
-              ),
+              )
+            ),
               React.createElement('div', null,
                 React.createElement('label', { className: 'block text-sm font-medium text-slate-700 mb-2' }, 'SDR Profiles'),
                 React.createElement('input', { type: 'number', value: outreachProfiles, onChange: (e) => setOutreachProfiles(Math.max(1, Number(e.target.value))), min: '1', className: 'w-full px-3 py-2 border border-slate-300 rounded-lg text-sm' }),
