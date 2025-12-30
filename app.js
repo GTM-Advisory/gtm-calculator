@@ -24,9 +24,9 @@ function GTMCalculator() {
   const getDefaultAllocations = () => {
     const baseAllocations = {
       20000: { 'LinkedIn Ads': 4500, 'Agency Outreach': 5500, 'Content': 3000, 'SEO Agency Fees': 2500, 'Agency Fees (Paid + Content)': 2500, 'Website/CRM/Tools': 1000, 'Quarterly Webinar': 1000 },
-      30000: { 'LinkedIn Ads': 7200, 'Agency Outreach': 8800, 'Content': 4000, 'Buffer/Testing': 1500, 'SEO Agency Fees': 2500, 'Agency Fees (Paid + Content)': 2500, 'Website/CRM/Tools': 2000, 'Quarterly Webinar': 1500 },
-      40000: { 'LinkedIn Ads': 12000, 'Agency Outreach': 10450, 'Content': 6000, 'Buffer/Testing': 2000, 'SEO Agency Fees': 2500, 'Agency Fees (Paid + Content)': 2500, 'Website/CRM/Tools': 2550, 'Quarterly Webinar': 2000 },
-      50000: { 'LinkedIn Ads': 15000, 'Agency Outreach': 13750, 'Content': 7250, 'Buffer/Testing': 2500, 'SEO Agency Fees': 2500, 'Agency Fees (Paid + Content)': 2500, 'Website/CRM/Tools': 4000, 'Quarterly Webinar': 2500 }
+      30000: { 'LinkedIn Ads': 6000, 'Google Remarketing': 1200, 'Agency Outreach': 8800, 'Content': 4000, 'Buffer/Testing': 1500, 'SEO Agency Fees': 2500, 'Agency Fees (Paid + Content)': 2500, 'Website/CRM/Tools': 2000, 'Quarterly Webinar': 1500 },
+      40000: { 'LinkedIn Ads': 10000, 'Google Remarketing': 2000, 'Agency Outreach': 10450, 'Content': 6000, 'Buffer/Testing': 2000, 'SEO Agency Fees': 2500, 'Agency Fees (Paid + Content)': 2500, 'Website/CRM/Tools': 2550, 'Quarterly Webinar': 2000 },
+      50000: { 'LinkedIn Ads': 12000, 'Google Remarketing': 3000, 'Agency Outreach': 13750, 'Content': 7250, 'Buffer/Testing': 2500, 'SEO Agency Fees': 2500, 'Agency Fees (Paid + Content)': 2500, 'Website/CRM/Tools': 4000, 'Quarterly Webinar': 2500 }
     };
 
     const allocations = {};
@@ -122,7 +122,10 @@ function GTMCalculator() {
     const revenue12m = deals12m * acv;
 
     const linkedinAdsBudget = customAllocation['LinkedIn Ads'] || 0;
-    const linkedinAdsMeetingsActual = linkedinAdsBudget > 0 ? Math.round((linkedinAdsBudget / 7000) * 10) / 10 : 0;
+    const linkedinAdsMeetingsActual = linkedinAdsBudget > 0 ? Math.round((linkedinAdsBudget / 5000) * 10) / 10 : 0;
+    
+    const googleRemarketingBudget = customAllocation['Google Remarketing'] || 0;
+    const googleRemarketingMeetingsActual = googleRemarketingBudget > 0 ? Math.round((googleRemarketingBudget / 2500) * 10) / 10 : 0;
     
     const contentBudget = customAllocation['Content'] || 0;
     const contentMeetingsActual = contentBudget > 0 ? Math.round((contentBudget / 3750) * 10) / 10 : 0;
@@ -141,6 +144,7 @@ function GTMCalculator() {
       revenue12m, 
       monthlyBurn: budget,
       linkedinAdsMeetingsActual,
+      googleRemarketingMeetingsActual,
       contentMeetingsActual,
       webinarMeetingsActual,
       outreachMeetingsActual,
@@ -312,25 +316,30 @@ function GTMCalculator() {
           ),
           React.createElement('div', { className: 'bg-white rounded-xl shadow-lg p-6 mb-8' },
             React.createElement('h3', { className: 'text-lg font-semibold text-slate-900 mb-4' }, 'Meetings by Channel (Monthly)'),
-            React.createElement('div', { className: 'grid grid-cols-4 gap-3 mb-6 pb-6 border-b border-slate-200' },
-              React.createElement('div', { className: 'bg-slate-50 rounded p-3 text-center' },
+            React.createElement('div', { className: 'grid grid-cols-5 gap-2 mb-6 pb-6 border-b border-slate-200' },
+              React.createElement('div', { className: 'bg-slate-50 rounded p-2 text-center' },
                 React.createElement('p', { className: 'text-xs text-slate-600 font-medium mb-1' }, 'LinkedIn Ads'),
-                React.createElement('p', { className: 'text-2xl font-bold text-blue-600' }, calculations.linkedinAdsMeetingsActual),
+                React.createElement('p', { className: 'text-xl font-bold text-blue-600' }, calculations.linkedinAdsMeetingsActual),
                 React.createElement('p', { className: 'text-xs text-slate-500 mt-1' }, `${formatCurrency(customAllocation['LinkedIn Ads'] || 0)}`)
               ),
-              React.createElement('div', { className: 'bg-slate-50 rounded p-3 text-center' },
+              React.createElement('div', { className: 'bg-slate-50 rounded p-2 text-center' },
+                React.createElement('p', { className: 'text-xs text-slate-600 font-medium mb-1' }, 'Google Remarketing'),
+                React.createElement('p', { className: 'text-xl font-bold text-indigo-600' }, calculations.googleRemarketingMeetingsActual),
+                React.createElement('p', { className: 'text-xs text-slate-500 mt-1' }, `${formatCurrency(customAllocation['Google Remarketing'] || 0)}`)
+              ),
+              React.createElement('div', { className: 'bg-slate-50 rounded p-2 text-center' },
                 React.createElement('p', { className: 'text-xs text-slate-600 font-medium mb-1' }, 'Content/Organic'),
-                React.createElement('p', { className: 'text-2xl font-bold text-emerald-600' }, calculations.contentMeetingsActual),
+                React.createElement('p', { className: 'text-xl font-bold text-emerald-600' }, calculations.contentMeetingsActual),
                 React.createElement('p', { className: 'text-xs text-slate-500 mt-1' }, `${formatCurrency(customAllocation['Content'] || 0)}`)
               ),
-              React.createElement('div', { className: 'bg-slate-50 rounded p-3 text-center' },
+              React.createElement('div', { className: 'bg-slate-50 rounded p-2 text-center' },
                 React.createElement('p', { className: 'text-xs text-slate-600 font-medium mb-1' }, 'Outreach'),
-                React.createElement('p', { className: 'text-2xl font-bold text-purple-600' }, calculations.outreachMeetingsActual),
+                React.createElement('p', { className: 'text-xl font-bold text-purple-600' }, calculations.outreachMeetingsActual),
                 React.createElement('p', { className: 'text-xs text-slate-500 mt-1' }, `${formatCurrency(customAllocation['Agency Outreach'] || customAllocation['Internal Outreach (Salary + Tools)'] || 0)}`)
               ),
-              React.createElement('div', { className: 'bg-slate-50 rounded p-3 text-center' },
+              React.createElement('div', { className: 'bg-slate-50 rounded p-2 text-center' },
                 React.createElement('p', { className: 'text-xs text-slate-600 font-medium mb-1' }, 'Webinar'),
-                React.createElement('p', { className: 'text-2xl font-bold text-amber-600' }, calculations.webinarMeetingsActual),
+                React.createElement('p', { className: 'text-xl font-bold text-amber-600' }, calculations.webinarMeetingsActual),
                 React.createElement('p', { className: 'text-xs text-slate-500 mt-1' }, `${formatCurrency(customAllocation['Quarterly Webinar'] || 0)}`)
               )
             ),
@@ -345,6 +354,13 @@ function GTMCalculator() {
                 React.createElement('span', { className: 'text-xs text-green-600 font-semibold' }, 'Most Efficient')
               ),
               React.createElement('div', { className: 'flex justify-between items-center p-3 bg-slate-50 rounded-lg' },
+                React.createElement('span', { className: 'text-slate-700 font-medium' }, 'Google Remarketing'),
+                React.createElement('div', { className: 'text-right' },
+                  React.createElement('p', { className: 'text-slate-900 font-semibold' }, '$2,500'),
+                  React.createElement('p', { className: 'text-xs text-slate-500' }, 'Cost per meeting')
+                )
+              ),
+              React.createElement('div', { className: 'flex justify-between items-center p-3 bg-slate-50 rounded-lg' },
                 React.createElement('span', { className: 'text-slate-700 font-medium' }, 'Agency Outreach'),
                 React.createElement('div', { className: 'text-right' },
                   React.createElement('p', { className: 'text-slate-900 font-semibold' }, '$850'),
@@ -352,17 +368,17 @@ function GTMCalculator() {
                 )
               ),
               React.createElement('div', { className: 'flex justify-between items-center p-3 bg-slate-50 rounded-lg' },
-                React.createElement('span', { className: 'text-slate-700 font-medium' }, 'LinkedIn Ads'),
-                React.createElement('div', { className: 'text-right' },
-                  React.createElement('p', { className: 'text-slate-900 font-semibold' }, '$7,000'),
-                  React.createElement('p', { className: 'text-xs text-slate-500' }, 'Nurture & brand')
-                )
-              ),
-              React.createElement('div', { className: 'flex justify-between items-center p-3 bg-slate-50 rounded-lg' },
                 React.createElement('span', { className: 'text-slate-700 font-medium' }, 'Content/Organic'),
                 React.createElement('div', { className: 'text-right' },
                   React.createElement('p', { className: 'text-slate-900 font-semibold' }, '$3,750'),
                   React.createElement('p', { className: 'text-xs text-slate-500' }, 'Long-term ROI')
+                )
+              ),
+              React.createElement('div', { className: 'flex justify-between items-center p-3 bg-slate-50 rounded-lg' },
+                React.createElement('span', { className: 'text-slate-700 font-medium' }, 'LinkedIn Ads'),
+                React.createElement('div', { className: 'text-right' },
+                  React.createElement('p', { className: 'text-slate-900 font-semibold' }, '$5,000'),
+                  React.createElement('p', { className: 'text-xs text-slate-500' }, 'Nurture & brand')
                 )
               ),
               React.createElement('div', { className: 'flex justify-between items-center p-3 bg-slate-50 rounded-lg' },
@@ -379,7 +395,7 @@ function GTMCalculator() {
                 React.createElement('ul', { className: 'space-y-2 text-sm text-slate-700' },
                   React.createElement('li', null, '• ', React.createElement('span', { className: 'font-semibold' }, 'Quarterly Webinar'), ' delivers the lowest cost per meeting at $750, making it the most efficient channel for consistent, high-quality pipeline generation'),
                   React.createElement('li', null, '• ', React.createElement('span', { className: 'font-semibold' }, 'Agency Outreach'), ' is a close second at $850 median with predictable volume and direct control over messaging'),
-                  React.createElement('li', null, '• ', React.createElement('span', { className: 'font-semibold' }, 'Internal SDR Outreach'), ' costs $1,955/meeting but provides full control and maximum personalization for enterprise accounts'),
+                  React.createElement('li', null, '• ', React.createElement('span', { className: 'font-semibold' }, 'Internal SDR outreach'), ' costs ~$1,955 per meeting due to salary costs, intent tools, data, ramp-up, and high turnover.'),
                   React.createElement('li', null, '• ', React.createElement('span', { className: 'font-semibold' }, 'LinkedIn Ads'), ' at $7,000/meeting serves as a nurture and brand-building channel rather than direct pipeline generation'),
                   React.createElement('li', null, '• ', React.createElement('span', { className: 'font-semibold' }, 'Content/Organic'), ' at $3,750/meeting builds long-term authority and supports the full sales funnel')
                 )
