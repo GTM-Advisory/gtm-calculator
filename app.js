@@ -173,7 +173,7 @@ function GTMCalculator() {
     };
   }, [acv, closeRate, qualificationRate, outreachStrategy, outreachProfiles, budget, customAllocation, customCostPerMeeting]);
 
-  const roiValue = ((((Math.round(calculations.deals12m / 12) * acv * 3) - (calculations.monthlyBurn * 12)) / (calculations.monthlyBurn * 12)) * 100);
+  const roiValue = ((((calculations.deals12m * acv * 3) - (calculations.monthlyBurn * 12)) / (calculations.monthlyBurn * 12)) * 100);
 
   const getChannelRankings = () => {
     const channels = [
@@ -271,20 +271,20 @@ function GTMCalculator() {
             React.createElement('p', { className: 'text-xs text-slate-600 italic mb-3' }, 'Includes 3-month setup & optimization phase: Month 1 (0%), Month 2 (25%), Month 3 (75%), Months 4-12 (100%)'),
             React.createElement('div', { className: 'grid grid-cols-4 gap-3' },
               React.createElement('div', { className: 'bg-white rounded p-3 text-center' },
-                React.createElement('p', { className: 'text-xs text-slate-600 font-medium' }, 'Meetings/Month'),
-                React.createElement('p', { className: 'text-2xl font-bold text-blue-600' }, Math.round(calculations.monthlyMeetings))
+                React.createElement('p', { className: 'text-xs text-slate-600 font-medium' }, 'Meetings (12mo)'),
+                React.createElement('p', { className: 'text-2xl font-bold text-blue-600' }, calculations.meetings12m)
               ),
               React.createElement('div', { className: 'bg-white rounded p-3 text-center' },
-                React.createElement('p', { className: 'text-xs text-slate-600 font-medium' }, 'Opps'),
-                React.createElement('p', { className: 'text-2xl font-bold text-emerald-600' }, Math.round(calculations.opportunities12m / 12))
+                React.createElement('p', { className: 'text-xs text-slate-600 font-medium' }, 'Opps (12mo)'),
+                React.createElement('p', { className: 'text-2xl font-bold text-emerald-600' }, calculations.opportunities12m)
               ),
               React.createElement('div', { className: 'bg-white rounded p-3 text-center' },
-                React.createElement('p', { className: 'text-xs text-slate-600 font-medium' }, 'Deals'),
-                React.createElement('p', { className: 'text-2xl font-bold text-purple-600' }, Math.round(calculations.deals12m / 12))
+                React.createElement('p', { className: 'text-xs text-slate-600 font-medium' }, 'Deals (12mo)'),
+                React.createElement('p', { className: 'text-2xl font-bold text-purple-600' }, calculations.deals12m)
               ),
               React.createElement('div', { className: 'bg-white rounded p-3 text-center' },
-                React.createElement('p', { className: 'text-xs text-slate-600 font-medium' }, 'Revenue'),
-                React.createElement('p', { className: 'text-lg font-bold text-amber-600' }, formatCurrency(Math.round(calculations.deals12m / 12) * acv))
+                React.createElement('p', { className: 'text-xs text-slate-600 font-medium' }, 'Revenue (12mo)'),
+                React.createElement('p', { className: 'text-lg font-bold text-amber-600' }, formatCurrency(calculations.revenue12m))
               )
             ),
             React.createElement('div', { className: 'mt-4 pt-4 border-t border-blue-200 grid grid-cols-3 gap-3 text-center text-sm' },
