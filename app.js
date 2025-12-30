@@ -23,10 +23,10 @@ function GTMCalculator() {
   
   const getDefaultAllocations = () => {
     const baseAllocations = {
-      20000: { 'LinkedIn Ads': 4500, 'Content': 3000, 'SEO Agency Fees': 2500, 'Website/CRM/Tools': 1000, 'Quarterly Webinar': 1000, 'Buffer/Testing': 0 },
-      30000: { 'LinkedIn Ads': 8000, 'Content': 5000, 'SEO Agency Fees': 2500, 'Website/CRM/Tools': 2000, 'Quarterly Webinar': 1500, 'Buffer/Testing': 3000 },
-      40000: { 'LinkedIn Ads': 12000, 'Content': 6000, 'SEO Agency Fees': 2500, 'Website/CRM/Tools': 2500, 'Quarterly Webinar': 3250, 'Agency Fees (Paid + Content)': 2500, 'Agency Outreach': 8800, 'Buffer/Testing': 2450 },
-      50000: { 'LinkedIn Ads': 15000, 'Content': 6500, 'SEO Agency Fees': 2500, 'Website/CRM/Tools': 2500, 'Quarterly Webinar': 3250, 'Agency Fees (Paid + Content)': 2500, 'Agency Outreach': 12100, 'Buffer/Testing': 5650 }
+      20000: { 'LinkedIn Ads': 4500, 'Agency Outreach': 5500, 'Content': 3000, 'SEO Agency Fees': 2500, 'Agency Fees (Paid + Content)': 2500, 'Website/CRM/Tools': 1000, 'Quarterly Webinar': 1000 },
+      30000: { 'LinkedIn Ads': 7200, 'Agency Outreach': 8800, 'Content': 4000, 'Buffer/Testing': 1500, 'SEO Agency Fees': 2500, 'Agency Fees (Paid + Content)': 2500, 'Website/CRM/Tools': 2000, 'Quarterly Webinar': 1500 },
+      40000: { 'LinkedIn Ads': 12000, 'Agency Outreach': 10450, 'Content': 6000, 'Buffer/Testing': 2000, 'SEO Agency Fees': 2500, 'Agency Fees (Paid + Content)': 2500, 'Website/CRM/Tools': 2550, 'Quarterly Webinar': 2000 },
+      50000: { 'LinkedIn Ads': 15000, 'Agency Outreach': 13750, 'Content': 7250, 'Buffer/Testing': 2500, 'SEO Agency Fees': 2500, 'Agency Fees (Paid + Content)': 2500, 'Website/CRM/Tools': 4000, 'Quarterly Webinar': 2500 }
     };
 
     const allocations = {};
@@ -43,13 +43,13 @@ function GTMCalculator() {
       }
       
       if (outreachStrategy === 'agency') {
-        const baseCost = 5500;
-        allocations[tier]['Agency Outreach'] = Math.round(baseCost + ((outreachProfiles - 1) * baseCost * 0.6));
+        const baseCosts = { 20000: 5500, 30000: 8800, 40000: 10450, 50000: 13750 };
+        allocations[tier]['Agency Outreach'] = baseCosts[tier] || 5500;
         delete allocations[tier]['Internal Outreach (Salary + Tools)'];
       } else {
         delete allocations[tier]['Agency Outreach'];
-        const baseCost = 7500;
-        allocations[tier]['Internal Outreach (Salary + Tools)'] = Math.round(baseCost + ((outreachProfiles - 1) * baseCost * 0.9));
+        const baseCosts = { 20000: 7500, 30000: 10000, 40000: 12500, 50000: 15000 };
+        allocations[tier]['Internal Outreach (Salary + Tools)'] = baseCosts[tier] || 7500;
       }
     }
     return allocations;
@@ -75,7 +75,7 @@ function GTMCalculator() {
 
   const handleQuickBudget = (amount) => {
     setBudget(amount);
-    const profiles = amount >= 45000 ? 3 : amount >= 35000 ? 2 : 1;
+    const profiles = amount >= 50000 ? 3.5 : amount >= 40000 ? 2.5 : amount >= 30000 ? 2 : 1;
     setOutreachProfiles(profiles);
   };
 
