@@ -113,11 +113,22 @@ function GTMCalculator() {
   };
 
   const customAllocation = React.useMemo(() => {
-    return Object.keys(allocationPercentages).reduce((acc, channel) => {
+    let allocations = Object.keys(allocationPercentages).reduce((acc, channel) => {
       acc[channel] = Math.round((allocationPercentages[channel] / 100) * budget);
       return acc;
     }, {});
-  }, [allocationPercentages, budget]);
+
+    // Recalculate Agency Fees based on actual paid media budget
+    if (paidMediaStrategy === 'agency') {
+      const linkedinBudget = allocations['LinkedIn Ads'] || 0;
+      const googleRemarketingBudget = allocations['Google Remarketing'] || 0;
+      const totalPaidMedia = linkedinBudget + googleRemarketingBudget;
+      const agencyFee = Math.max(2500, Math.round(totalPaidMedia * 0.15));
+      allocations['Agency Fees (Paid + Content)'] = agencyFee;
+    }
+
+    return allocations;
+  }, [allocationPercentages, budget, paidMediaStrategy]);
 
   const allocationTotal = Object.values(customAllocation).reduce((a, b) => a + b, 0);
   const budgetDifference = allocationTotal - budget;
