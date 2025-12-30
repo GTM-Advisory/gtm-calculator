@@ -206,6 +206,31 @@ function GTMCalculator() {
             )
           ),
           React.createElement('div', { className: 'bg-white rounded-xl shadow-lg p-6 mb-8' },
+            React.createElement('h3', { className: 'text-lg font-semibold text-slate-900 mb-4' }, 'Meetings by Channel (Monthly)'),
+            React.createElement('div', { className: 'grid grid-cols-2 gap-4' },
+              React.createElement('div', { className: 'bg-slate-50 rounded p-3' },
+                React.createElement('p', { className: 'text-xs text-slate-600 font-medium mb-1' }, 'LinkedIn Ads'),
+                React.createElement('p', { className: 'text-2xl font-bold text-blue-600' }, '~1-2'),
+                React.createElement('p', { className: 'text-xs text-slate-500 mt-1' }, '$7,000 per meeting')
+              ),
+              React.createElement('div', { className: 'bg-slate-50 rounded p-3' },
+                React.createElement('p', { className: 'text-xs text-slate-600 font-medium mb-1' }, 'Content/Organic'),
+                React.createElement('p', { className: 'text-2xl font-bold text-emerald-600' }, '~2-3'),
+                React.createElement('p', { className: 'text-xs text-slate-500 mt-1' }, '$3,750 per meeting')
+              ),
+              React.createElement('div', { className: 'bg-slate-50 rounded p-3' },
+                React.createElement('p', { className: 'text-xs text-slate-600 font-medium mb-1' }, 'Outreach'),
+                React.createElement('p', { className: 'text-2xl font-bold text-purple-600' }, outreachStrategy === 'agency' ? '~6-10' : '~4-7'),
+                React.createElement('p', { className: 'text-xs text-slate-500 mt-1' }, outreachStrategy === 'agency' ? '$850 per meeting' : '$1,955 per meeting')
+              ),
+              React.createElement('div', { className: 'bg-slate-50 rounded p-3' },
+                React.createElement('p', { className: 'text-xs text-slate-600 font-medium mb-1' }, 'Webinar'),
+                React.createElement('p', { className: 'text-2xl font-bold text-amber-600' }, '~2'),
+                React.createElement('p', { className: 'text-xs text-slate-500 mt-1' }, '$750 per meeting')
+              )
+            )
+          ),
+          React.createElement('div', { className: 'bg-white rounded-xl shadow-lg p-6 mb-8' },
             React.createElement('h3', { className: 'text-lg font-semibold text-slate-900 mb-4' }, `Budget Allocation (${formatCurrency(allocationTotal)}/month)`),
             React.createElement('div', { className: 'grid grid-cols-2 gap-4 mb-6 pb-6 border-b border-slate-200' },
               React.createElement('div', null,
