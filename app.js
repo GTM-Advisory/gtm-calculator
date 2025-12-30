@@ -138,10 +138,13 @@ function GTMCalculator() {
     const outreachMeetings = outreachBudget > 0 ? outreachBudget / outreachMeetingsCost : 0;
 
     // Total monthly meetings
-    const totalMeetingsPerMonth = linkedinAdsMeetings + googleRemarketingMeetings + contentMeetings + webinarMeetings + outreachMeetings;
-    const opportunitiesPerMonth = (totalMeetingsPerMonth * qualificationRate) / 100;
-    const closedDealsPerMonth = (opportunitiesPerMonth * closeRate) / 100;
-    const meetings12m = Math.round(totalMeetingsPerMonth * 12);
+    const monthlyMeetings = linkedinAdsMeetings + googleRemarketingMeetings + contentMeetings + webinarMeetings + outreachMeetings;
+    
+    // Calculate 12-month impact with ramp-up phase
+    // Month 1: 0%, Month 2: 25%, Month 3: 75%, Months 4-12: 100%
+    const rampupMeetings = (monthlyMeetings * 0) + (monthlyMeetings * 0.25) + (monthlyMeetings * 0.75) + (monthlyMeetings * 1 * 9);
+    const meetings12m = Math.round(rampupMeetings);
+    
     const opportunities12m = Math.round((meetings12m * qualificationRate) / 100);
     const deals12m = Math.round((opportunities12m * closeRate) / 100);
     const revenue12m = deals12m * acv;
@@ -152,6 +155,7 @@ function GTMCalculator() {
     const contentMeetingsActual = contentBudget > 0 ? Math.round((contentBudget / customCostPerMeeting['Content']) * 10) / 10 : 0;
     const webinarMeetingsActual = webinarBudget > 0 ? Math.round((webinarBudget / customCostPerMeeting['Webinar']) * 10) / 10 : 0;
     const outreachMeetingsActual = outreachBudget > 0 ? Math.round((outreachBudget / outreachMeetingsCost) * 10) / 10 : 0;
+    const totalMonthlyMeetings = Math.round(monthlyMeetings * 10) / 10;
 
     return { 
       meetings12m, 
@@ -159,6 +163,7 @@ function GTMCalculator() {
       deals12m, 
       revenue12m, 
       monthlyBurn: budget,
+      monthlyMeetings: totalMonthlyMeetings,
       linkedinAdsMeetingsActual,
       googleRemarketingMeetingsActual,
       contentMeetingsActual,
@@ -266,8 +271,8 @@ function GTMCalculator() {
             React.createElement('p', { className: 'text-xs text-slate-600 italic mb-3' }, 'Includes 3-month setup & optimization phase: Month 1 (0%), Month 2 (25%), Month 3 (75%), Months 4-12 (100%)'),
             React.createElement('div', { className: 'grid grid-cols-4 gap-3' },
               React.createElement('div', { className: 'bg-white rounded p-3 text-center' },
-                React.createElement('p', { className: 'text-xs text-slate-600 font-medium' }, 'Meetings'),
-                React.createElement('p', { className: 'text-2xl font-bold text-blue-600' }, Math.round(calculations.meetings12m / 12))
+                React.createElement('p', { className: 'text-xs text-slate-600 font-medium' }, 'Meetings/Month'),
+                React.createElement('p', { className: 'text-2xl font-bold text-blue-600' }, Math.round(calculations.monthlyMeetings))
               ),
               React.createElement('div', { className: 'bg-white rounded p-3 text-center' },
                 React.createElement('p', { className: 'text-xs text-slate-600 font-medium' }, 'Opps'),
