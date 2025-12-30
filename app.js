@@ -224,375 +224,277 @@ function GTMCalculator() {
     };
   }, [acv, closeRate, qualificationRate, outreachStrategy, outreachProfiles, budget]);
 
-  return (
-    <div className="min-h-screen bg-gradient-to-br from-slate-50 to-slate-100 p-8">
-      <div className="max-w-7xl mx-auto">
-        <div className="mb-6">
-          <h1 className="text-3xl font-bold text-slate-900 mb-1">GTM Budget Calculator</h1>
-          <p className="text-sm text-slate-600 mb-2">Adjust your budget allocation and see real-time impact on pipeline</p>
-          <p className="text-xs text-slate-700 italic">Recommended Strategy: Combine Webinar + Agency/SDR Outreach for direct pipeline generation while maintaining LinkedIn Ads + Content for long-term brand building and lead nurturing.</p>
-        </div>
+  const roiValue = ((((Math.round((calculations.deals12m * 10) / 12) * acv * 3) - (calculations.monthlyBurn * 12)) / (calculations.monthlyBurn * 12)) * 100);
 
-        <div className="grid grid-cols-1 lg:grid-cols-4 gap-8">
-          <div className="lg:col-span-1">
-            <div className="bg-white rounded-xl shadow-lg p-6 sticky top-8 max-h-[calc(100vh-100px)] overflow-y-auto">
-              <div className="flex justify-between items-center mb-6">
-                <h2 className="text-xl font-semibold text-slate-900">Your Inputs</h2>
-                <button
-                  onClick={resetAllocation}
-                  className="py-1 px-2 rounded text-xs font-medium bg-slate-100 hover:bg-slate-200 text-slate-700 flex items-center gap-1 transition"
-                >
-                  <svg className="w-3 h-3" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M4 4v5h.582m15.356 2A8.001 8.001 0 004.582 9m0 0H9m11 11v-5h-.581m0 0a8.003 8.003 0 01-15.357-2m15.357 2H15" /></svg>
-                  Reset
-                </button>
-              </div>
-
-              <div className="mb-4 flex gap-4 items-end">
-                <div className="flex-1">
-                  <label className="block text-sm font-medium text-slate-700 mb-2">
-                    💰 ACV
-                  </label>
-                  <input
-                    type="number"
-                    value={acv}
-                    onChange={(e) => setAcv(Number(e.target.value))}
-                    className="w-full px-3 py-2 border border-slate-300 rounded-lg text-sm focus:ring-2 focus:ring-blue-500 focus:border-transparent"
-                  />
-                </div>
-
-                <div className="flex-1">
-                  <label className="block text-sm font-medium text-slate-700 mb-2">
-                    📅 Sales Cycle (days)
-                  </label>
-                  <input
-                    type="number"
-                    value={salesCycle}
-                    onChange={(e) => setSalesCycle(Number(e.target.value))}
-                    className="w-full px-3 py-2 border border-slate-300 rounded-lg text-sm focus:ring-2 focus:ring-blue-500 focus:border-transparent"
-                  />
-                </div>
-
-                <div className="flex-1">
-                  <label className="block text-sm font-medium text-slate-700 mb-2">
-                    📊 Meeting > Opp (%)
-                  </label>
-                  <input
-                    type="number"
-                    value={qualificationRate}
-                    onChange={(e) => setQualificationRate(Number(e.target.value))}
-                    className="w-full px-3 py-2 border border-slate-300 rounded-lg text-sm focus:ring-2 focus:ring-blue-500 focus:border-transparent"
-                  />
-                </div>
-
-                <div className="flex-1">
-                  <label className="block text-sm font-medium text-slate-700 mb-2">
-                    📈 Close Rate (%)
-                  </label>
-                  <input
-                    type="number"
-                    value={closeRate}
-                    onChange={(e) => setCloseRate(Number(e.target.value))}
-                    className="w-full px-3 py-2 border border-slate-300 rounded-lg text-sm focus:ring-2 focus:ring-blue-500 focus:border-transparent"
-                  />
-                </div>
-              </div>
-
-              <div className="mb-6">
-                <label className="block text-sm font-medium text-slate-700 mb-2">
-                  🎯 Monthly Budget
-                </label>
-                <div className="flex gap-2">
-                  <button
-                    onClick={() => handleQuickBudget(20000)}
-                    className={`flex-1 py-2 rounded-lg font-medium text-sm transition ${
-                      budget === 20000
+  return React.createElement('div', { className: 'min-h-screen bg-gradient-to-br from-slate-50 to-slate-100 p-8' },
+    React.createElement('div', { className: 'max-w-7xl mx-auto' },
+      React.createElement('div', { className: 'mb-6' },
+        React.createElement('h1', { className: 'text-3xl font-bold text-slate-900 mb-1' }, 'GTM Budget Calculator'),
+        React.createElement('p', { className: 'text-sm text-slate-600 mb-2' }, 'Adjust your budget allocation and see real-time impact on pipeline'),
+        React.createElement('p', { className: 'text-xs text-slate-700 italic' }, 'Recommended Strategy: Combine Webinar + Agency/SDR Outreach for direct pipeline generation while maintaining LinkedIn Ads + Content for long-term brand building and lead nurturing.')
+      ),
+      React.createElement('div', { className: 'grid grid-cols-1 lg:grid-cols-4 gap-8' },
+        React.createElement('div', { className: 'lg:col-span-1' },
+          React.createElement('div', { className: 'bg-white rounded-xl shadow-lg p-6 sticky top-8 max-h-[calc(100vh-100px)] overflow-y-auto' },
+            React.createElement('div', { className: 'flex justify-between items-center mb-6' },
+              React.createElement('h2', { className: 'text-xl font-semibold text-slate-900' }, 'Your Inputs'),
+              React.createElement('button', {
+                onClick: resetAllocation,
+                className: 'py-1 px-2 rounded text-xs font-medium bg-slate-100 hover:bg-slate-200 text-slate-700 flex items-center gap-1 transition'
+              }, '↻ Reset')
+            ),
+            React.createElement('div', { className: 'mb-4 flex gap-4 items-end' },
+              React.createElement('div', { className: 'flex-1' },
+                React.createElement('label', { className: 'block text-sm font-medium text-slate-700 mb-2' }, '💰 ACV'),
+                React.createElement('input', {
+                  type: 'number',
+                  value: acv,
+                  onChange: (e) => setAcv(Number(e.target.value)),
+                  className: 'w-full px-3 py-2 border border-slate-300 rounded-lg text-sm focus:ring-2 focus:ring-blue-500 focus:border-transparent'
+                })
+              ),
+              React.createElement('div', { className: 'flex-1' },
+                React.createElement('label', { className: 'block text-sm font-medium text-slate-700 mb-2' }, '📅 Sales Cycle (days)'),
+                React.createElement('input', {
+                  type: 'number',
+                  value: salesCycle,
+                  onChange: (e) => setSalesCycle(Number(e.target.value)),
+                  className: 'w-full px-3 py-2 border border-slate-300 rounded-lg text-sm focus:ring-2 focus:ring-blue-500 focus:border-transparent'
+                })
+              ),
+              React.createElement('div', { className: 'flex-1' },
+                React.createElement('label', { className: 'block text-sm font-medium text-slate-700 mb-2' }, '📊 Meeting > Opp (%)'),
+                React.createElement('input', {
+                  type: 'number',
+                  value: qualificationRate,
+                  onChange: (e) => setQualificationRate(Number(e.target.value)),
+                  className: 'w-full px-3 py-2 border border-slate-300 rounded-lg text-sm focus:ring-2 focus:ring-blue-500 focus:border-transparent'
+                })
+              ),
+              React.createElement('div', { className: 'flex-1' },
+                React.createElement('label', { className: 'block text-sm font-medium text-slate-700 mb-2' }, '📈 Close Rate (%)'),
+                React.createElement('input', {
+                  type: 'number',
+                  value: closeRate,
+                  onChange: (e) => setCloseRate(Number(e.target.value)),
+                  className: 'w-full px-3 py-2 border border-slate-300 rounded-lg text-sm focus:ring-2 focus:ring-blue-500 focus:border-transparent'
+                })
+              )
+            ),
+            React.createElement('div', { className: 'mb-6' },
+              React.createElement('label', { className: 'block text-sm font-medium text-slate-700 mb-2' }, '🎯 Monthly Budget'),
+              React.createElement('div', { className: 'flex gap-2' },
+                [20000, 30000, 40000, 50000].map(amount =>
+                  React.createElement('button', {
+                    key: amount,
+                    onClick: () => handleQuickBudget(amount),
+                    className: `flex-1 py-2 rounded-lg font-medium text-sm transition ${
+                      budget === amount
                         ? 'bg-blue-500 text-white'
                         : 'bg-slate-100 text-slate-700 hover:bg-slate-200'
-                    }`}
-                  >
-                    $20K
-                  </button>
-                  <button
-                    onClick={() => handleQuickBudget(30000)}
-                    className={`flex-1 py-2 rounded-lg font-medium text-sm transition ${
-                      budget === 30000
-                        ? 'bg-blue-500 text-white'
-                        : 'bg-slate-100 text-slate-700 hover:bg-slate-200'
-                    }`}
-                  >
-                    $30K
-                  </button>
-                  <button
-                    onClick={() => handleQuickBudget(40000)}
-                    className={`flex-1 py-2 rounded-lg font-medium text-sm transition ${
-                      budget === 40000
-                        ? 'bg-blue-500 text-white'
-                        : 'bg-slate-100 text-slate-700 hover:bg-slate-200'
-                    }`}
-                  >
-                    $40K
-                  </button>
-                  <button
-                    onClick={() => handleQuickBudget(50000)}
-                    className={`flex-1 py-2 rounded-lg font-medium text-sm transition ${
-                      budget === 50000
-                        ? 'bg-blue-500 text-white'
-                        : 'bg-slate-100 text-slate-700 hover:bg-slate-200'
-                    }`}
-                  >
-                    $50K
-                  </button>
-                </div>
-              </div>
-            </div>
-          </div>
-
-          <div className="lg:col-span-3">
-            <div className="bg-gradient-to-r from-blue-50 to-indigo-50 rounded-xl shadow-lg p-4 mb-4 border border-blue-200">
-              <div className="mb-3">
-                <h3 className="text-sm font-semibold text-slate-900 mb-1">12-Month Impact</h3>
-                <p className="text-xs text-slate-600 italic">Includes 3-month setup & optimization phase: Month 1 (0%), Month 2 (25%), Month 3 (75%), Months 4-12 (100%)</p>
-              </div>
-              <div className="grid grid-cols-4 gap-2">
-                <div className="bg-white rounded p-2 text-center">
-                  <p className="text-xs text-slate-600 font-medium mb-1">Meetings</p>
-                  <p className="text-xl font-bold text-blue-600">{Math.round((calculations.meetings12m * 10) / 12)}</p>
-                </div>
-                <div className="bg-white rounded p-2 text-center">
-                  <p className="text-xs text-slate-600 font-medium mb-1">Opps</p>
-                  <p className="text-xl font-bold text-emerald-600">{Math.round((calculations.opportunities12m * 10) / 12)}</p>
-                </div>
-                <div className="bg-white rounded p-2 text-center">
-                  <p className="text-xs text-slate-600 font-medium mb-1">Deals</p>
-                  <p className="text-xl font-bold text-purple-600">{Math.round((calculations.deals12m * 10) / 12)}</p>
-                </div>
-                <div className="bg-white rounded p-2 text-center">
-                  <p className="text-xs text-slate-600 font-medium mb-1">Revenue</p>
-                  <p className="text-sm font-bold text-amber-600">{formatCurrency(Math.round((calculations.deals12m * 10) / 12) * acv)}</p>
-                </div>
-              </div>
-              <div className="mt-2 pt-2 border-t border-blue-200 grid grid-cols-3 gap-2 text-center">
-                <div>
-                  <p className="text-xs text-slate-600">12mo Spend</p>
-                  <p className="text-xs font-bold text-slate-900">{formatCurrency(calculations.monthlyBurn * 12)}</p>
-                </div>
-                <div>
-                  <p className="text-xs text-slate-600">3yr LTV</p>
-                  <p className="text-xs font-bold text-green-600">{formatCurrency(Math.round((calculations.deals12m * 10) / 12) * acv * 3)}</p>
-                </div>
-                <div>
-                  <p className="text-xs text-slate-600">ROI</p>
-                  <p className={`text-xs font-bold ${((((Math.round((calculations.deals12m * 10) / 12) * acv * 3) - (calculations.monthlyBurn * 12)) / (calculations.monthlyBurn * 12)) * 100) >= 0 ? 'text-green-600' : 'text-red-600'}`}>
-                    {((((Math.round((calculations.deals12m * 10) / 12) * acv * 3) - (calculations.monthlyBurn * 12)) / (calculations.monthlyBurn * 12)) * 100) >= 0 
-                      ? `${(((((Math.round((calculations.deals12m * 10) / 12) * acv * 3) - (calculations.monthlyBurn * 12)) / (calculations.monthlyBurn * 12)) * 100)).toFixed(0)}%`
-                      : `(${Math.abs((((((Math.round((calculations.deals12m * 10) / 12) * acv * 3) - (calculations.monthlyBurn * 12)) / (calculations.monthlyBurn * 12)) * 100)).toFixed(0))}%)`
-                    }
-                  </p>
-                </div>
-              </div>
-            </div>
-
-            <div key={`allocation-${resetTrigger}`} className="bg-white rounded-xl shadow-lg p-6 mb-8">
-              <div className="flex justify-between items-center mb-6">
-                <h3 className="text-lg font-semibold text-slate-900 flex items-center">
-                  📊 Monthly Budget Allocation ({formatCurrency(allocationTotal)}/month)
-                </h3>
-              </div>
-
-              <div className="mb-6 flex gap-4 pb-6 border-b border-slate-200">
-                <div className="flex-1">
-                  <label className="block text-sm font-medium text-slate-700 mb-3">
-                    Paid Media Strategy
-                  </label>
-                  <div className="flex flex-col gap-2">
-                    <button
-                      onClick={() => setPaidMediaStrategy('agency')}
-                      className={`py-3 px-3 rounded-lg text-sm font-medium transition border-2 ${
-                        paidMediaStrategy === 'agency'
-                          ? 'border-blue-500 bg-blue-50 text-blue-700'
-                          : 'border-slate-200 bg-white text-slate-700 hover:border-slate-300'
-                      }`}
-                    >
-                      <div className="font-semibold">Agency</div>
-                      <div className="text-xs mt-1">$2,500 base + 15% of LinkedIn Ads</div>
-                    </button>
-                    <button
-                      onClick={() => setPaidMediaStrategy('internal')}
-                      className={`py-3 px-3 rounded-lg text-sm font-medium transition border-2 ${
-                        paidMediaStrategy === 'internal'
-                          ? 'border-blue-500 bg-blue-50 text-blue-700'
-                          : 'border-slate-200 bg-white text-slate-700 hover:border-slate-300'
-                      }`}
-                    >
-                      <div className="font-semibold">Internal Resource</div>
-                      <div className="text-xs mt-1">$12,500/month (Salary + Tools)</div>
-                    </button>
-                  </div>
-                </div>
-
-                <div className="flex-1">
-                  <label className="block text-sm font-medium text-slate-700 mb-3">
-                    Outreach Strategy
-                  </label>
-                  <div className="flex flex-col gap-2">
-                    <button
-                      onClick={() => setOutreachStrategy('agency')}
-                      className={`py-3 px-3 rounded-lg text-sm font-medium transition border-2 ${
-                        outreachStrategy === 'agency'
-                          ? 'border-blue-500 bg-blue-50 text-blue-700'
-                          : 'border-slate-200 bg-white text-slate-700 hover:border-slate-300'
-                      }`}
-                    >
-                      <div className="font-semibold">Agency</div>
-                      <div className="text-xs mt-1">
-                        $5,500/month + $3,300/month per additional profile
-                      </div>
-                    </button>
-                    <button
-                      onClick={() => setOutreachStrategy('internal')}
-                      className={`py-3 px-3 rounded-lg text-sm font-medium transition border-2 ${
-                        outreachStrategy === 'internal'
-                          ? 'border-blue-500 bg-blue-50 text-blue-700'
-                          : 'border-slate-200 bg-white text-slate-700 hover:border-slate-300'
-                      }`}
-                    >
-                      <div className="font-semibold">Internal Resource</div>
-                      <div className="text-xs mt-1">
-                        $7,500/month + $6,750/month per additional profile
-                      </div>
-                    </button>
-                  </div>
-                  
-                  <div className="mt-3 border-t border-slate-200 pt-3">
-                    <label className="block text-sm font-medium text-slate-700 mb-2">
-                      Profiles/SDRs {budget >= 45000 ? '(default: 3)' : budget >= 35000 ? '(default: 2)' : '(default: 1)'}
-                    </label>
-                    <input
-                      type="number"
-                      value={outreachProfiles}
-                      onChange={(e) => setOutreachProfiles(Math.max(1, Number(e.target.value)))}
-                      min="1"
-                      className="w-full px-3 py-2 border border-slate-300 rounded-lg text-sm focus:ring-2 focus:ring-blue-500 focus:border-transparent"
-                    />
-                    <p className="text-xs text-slate-500 mt-1">
-                      {outreachStrategy === 'agency' 
-                        ? `+60% per additional profile ($3,300/month)`
-                        : `+90% per additional profile ($6,750/month)`
-                      }
-                    </p>
-                  </div>
-                </div>
-              </div>
-
-              {!budgetBalanced && (
-                <div
-                  className={`mb-6 p-3 rounded-lg text-sm font-medium flex items-center gap-2 ${
-                    budgetDifference > 0
-                      ? 'bg-red-50 text-red-800 border border-red-200'
-                      : 'bg-green-50 text-green-800 border border-green-200'
-                  }`}
-                >
-                  {budgetDifference > 0
-                    ? `⚠️ Over budget by ${formatCurrency(budgetDifference)}`
-                    : `✓ Under budget by ${formatCurrency(Math.abs(budgetDifference))}`}
-                </div>
-              )}
-
-              <div className="space-y-4">
-                {Object.keys(customAllocation)
-                  .sort((a, b) => customAllocation[b] - customAllocation[a])
-                  .map((channel) => (
-                    <div key={channel}>
-                      <div className="flex justify-between items-center mb-2">
-                        <label className="text-sm font-medium text-slate-700">{channel}</label>
-                        <div className="text-right">
-                          <span className="font-semibold text-slate-900 text-sm">{formatCurrency(customAllocation[channel])}</span>
-                          <span className="text-xs text-slate-500 ml-2">{allocationPercentages[channel]?.toFixed(1)}%</span>
-                        </div>
-                      </div>
-                      <input
-                        type="range"
-                        min="0"
-                        max="100"
-                        value={allocationPercentages[channel] || 0}
-                        onChange={(e) => {
-                          const newPercentages = { ...allocationPercentages };
-                          newPercentages[channel] = Number(e.target.value);
-                          setAllocationPercentages(newPercentages);
-                        }}
-                        className="w-full h-2 bg-slate-200 rounded-lg appearance-none cursor-pointer"
-                      />
-                    </div>
-                  ))}
-              </div>
-            </div>
-
-            <div className="bg-white rounded-xl shadow-lg p-6">
-              <h3 className="text-lg font-semibold text-slate-900 mb-4">Summary: Cost per Meeting by Channel</h3>
-              <div className="space-y-3 mb-6">
-                <div className="flex justify-between items-center p-3 bg-slate-50 rounded-lg">
-                  <span className="text-slate-700 font-medium">Quarterly Webinar</span>
-                  <div className="text-right">
-                    <p className="text-slate-900 font-semibold">$750</p>
-                    <p className="text-xs text-slate-500">($500-$1,000)</p>
-                  </div>
-                  <span className="text-xs text-green-600 font-semibold ml-3">Most Efficient</span>
-                </div>
-                <div className="flex justify-between items-center p-3 bg-slate-50 rounded-lg">
-                  <span className="text-slate-700 font-medium">Agency Outreach</span>
-                  <div className="text-right">
-                    <p className="text-slate-900 font-semibold">$850</p>
-                    <p className="text-xs text-slate-500">Direct & predictable</p>
-                  </div>
-                </div>
-                <div className="flex justify-between items-center p-3 bg-slate-50 rounded-lg">
-                  <span className="text-slate-700 font-medium">LinkedIn Ads</span>
-                  <div className="text-right">
-                    <p className="text-slate-900 font-semibold">$7,000</p>
-                    <p className="text-xs text-slate-500">Nurture & brand</p>
-                  </div>
-                </div>
-                <div className="flex justify-between items-center p-3 bg-slate-50 rounded-lg">
-                  <span className="text-slate-700 font-medium">Content/Organic</span>
-                  <div className="text-right">
-                    <p className="text-slate-900 font-semibold">$3,750</p>
-                    <p className="text-xs text-slate-500">Long-term ROI</p>
-                  </div>
-                </div>
-                <div className="flex justify-between items-center p-3 bg-slate-50 rounded-lg">
-                  <span className="text-slate-700 font-medium">Internal SDR Outreach</span>
-                  <div className="text-right">
-                    <p className="text-slate-900 font-semibold">$1,955</p>
-                    <p className="text-xs text-slate-500">Full control & scale</p>
-                  </div>
-                </div>
-              </div>
-              <div className="border-t border-slate-200 pt-4 space-y-3">
-                <div>
-                  <p className="text-sm font-semibold text-slate-900 mb-2">Key Insights:</p>
-                  <ul className="space-y-2 text-sm text-slate-700">
-                    <li>• <span className="font-semibold">Quarterly Webinar</span> delivers the lowest cost per meeting at $750, making it the most efficient channel for consistent, high-quality pipeline generation</li>
-                    <li>• <span className="font-semibold">Agency Outreach</span> is a close second at $850 median with predictable volume and direct control over messaging</li>
-                    <li>• <span className="font-semibold">Internal SDR Outreach</span> costs $1,955/meeting but provides full control and maximum personalization for enterprise accounts</li>
-                    <li>• <span className="font-semibold">LinkedIn Ads</span> at $7,000/meeting serves as a nurture and brand-building channel rather than direct pipeline generation</li>
-                    <li>• <span className="font-semibold">Content/Organic</span> at $3,750/meeting builds long-term authority and supports the full sales funnel</li>
-                  </ul>
-                </div>
-                <div className="pt-3 border-t border-slate-200">
-                  <p className="text-sm font-semibold text-slate-900 mb-2">Recommended Budget Allocation by Tier:</p>
-                  <ul className="space-y-1 text-sm text-slate-700">
-                    <li>• <span className="font-semibold">$20K:</span> Foundational GTM with 1 SDR/Agency Outreach profile, webinars, and content optimization</li>
-                    <li>• <span className="font-semibold">$30K:</span> Increased content production, expanded webinar cadence, and buffer for testing new channels</li>
-                    <li>• <span className="font-semibold">$40K:</span> Scale to 2 SDR profiles, increase webinar frequency, strengthen LinkedIn paid presence and organic content</li>
-                    <li>• <span className="font-semibold">$50K:</span> Full SDR team (3 profiles), premium content program, sustained brand building across all channels with experimental budget</li>
-                  </ul>
-                </div>
-              </div>
-            </div>
-          </div>
-        </div>
-      </div>
-    </div>
+                    }`
+                  }, `$${amount / 1000}K`)
+                )
+              )
+            )
+          )
+        ),
+        React.createElement('div', { className: 'lg:col-span-3' },
+          React.createElement('div', { className: 'bg-gradient-to-r from-blue-50 to-indigo-50 rounded-xl shadow-lg p-4 mb-4 border border-blue-200' },
+            React.createElement('div', { className: 'mb-3' },
+              React.createElement('h3', { className: 'text-sm font-semibold text-slate-900 mb-1' }, '12-Month Impact'),
+              React.createElement('p', { className: 'text-xs text-slate-600 italic' }, 'Includes 3-month setup & optimization phase: Month 1 (0%), Month 2 (25%), Month 3 (75%), Months 4-12 (100%)')
+            ),
+            React.createElement('div', { className: 'grid grid-cols-4 gap-2' },
+              React.createElement('div', { className: 'bg-white rounded p-2 text-center' },
+                React.createElement('p', { className: 'text-xs text-slate-600 font-medium mb-1' }, 'Meetings'),
+                React.createElement('p', { className: 'text-xl font-bold text-blue-600' }, Math.round((calculations.meetings12m * 10) / 12))
+              ),
+              React.createElement('div', { className: 'bg-white rounded p-2 text-center' },
+                React.createElement('p', { className: 'text-xs text-slate-600 font-medium mb-1' }, 'Opps'),
+                React.createElement('p', { className: 'text-xl font-bold text-emerald-600' }, Math.round((calculations.opportunities12m * 10) / 12))
+              ),
+              React.createElement('div', { className: 'bg-white rounded p-2 text-center' },
+                React.createElement('p', { className: 'text-xs text-slate-600 font-medium mb-1' }, 'Deals'),
+                React.createElement('p', { className: 'text-xl font-bold text-purple-600' }, Math.round((calculations.deals12m * 10) / 12))
+              ),
+              React.createElement('div', { className: 'bg-white rounded p-2 text-center' },
+                React.createElement('p', { className: 'text-xs text-slate-600 font-medium mb-1' }, 'Revenue'),
+                React.createElement('p', { className: 'text-sm font-bold text-amber-600' }, formatCurrency(Math.round((calculations.deals12m * 10) / 12) * acv))
+              )
+            ),
+            React.createElement('div', { className: 'mt-2 pt-2 border-t border-blue-200 grid grid-cols-3 gap-2 text-center' },
+              React.createElement('div', null,
+                React.createElement('p', { className: 'text-xs text-slate-600' }, '12mo Spend'),
+                React.createElement('p', { className: 'text-xs font-bold text-slate-900' }, formatCurrency(calculations.monthlyBurn * 12))
+              ),
+              React.createElement('div', null,
+                React.createElement('p', { className: 'text-xs text-slate-600' }, '3yr LTV'),
+                React.createElement('p', { className: 'text-xs font-bold text-green-600' }, formatCurrency(Math.round((calculations.deals12m * 10) / 12) * acv * 3))
+              ),
+              React.createElement('div', null,
+                React.createElement('p', { className: 'text-xs text-slate-600' }, 'ROI'),
+                React.createElement('p', { className: `text-xs font-bold ${roiValue >= 0 ? 'text-green-600' : 'text-red-600'}` },
+                  roiValue >= 0 ? `${roiValue.toFixed(0)}%` : `(${Math.abs(roiValue).toFixed(0)}%)`
+                )
+              )
+            )
+          ),
+          React.createElement('div', { className: 'bg-white rounded-xl shadow-lg p-6 mb-8', key: `allocation-${resetTrigger}` },
+            React.createElement('div', { className: 'flex justify-between items-center mb-6' },
+              React.createElement('h3', { className: 'text-lg font-semibold text-slate-900' }, `📊 Monthly Budget Allocation (${formatCurrency(allocationTotal)}/month)`)
+            ),
+            React.createElement('div', { className: 'mb-6 flex gap-4 pb-6 border-b border-slate-200' },
+              React.createElement('div', { className: 'flex-1' },
+                React.createElement('label', { className: 'block text-sm font-medium text-slate-700 mb-3' }, 'Paid Media Strategy'),
+                React.createElement('div', { className: 'flex flex-col gap-2' },
+                  React.createElement('button', {
+                    onClick: () => setPaidMediaStrategy('agency'),
+                    className: `py-3 px-3 rounded-lg text-sm font-medium transition border-2 ${paidMediaStrategy === 'agency' ? 'border-blue-500 bg-blue-50 text-blue-700' : 'border-slate-200 bg-white text-slate-700 hover:border-slate-300'}`
+                  },
+                    React.createElement('div', { className: 'font-semibold' }, 'Agency'),
+                    React.createElement('div', { className: 'text-xs mt-1' }, '$2,500 base + 15% of LinkedIn Ads')
+                  ),
+                  React.createElement('button', {
+                    onClick: () => setPaidMediaStrategy('internal'),
+                    className: `py-3 px-3 rounded-lg text-sm font-medium transition border-2 ${paidMediaStrategy === 'internal' ? 'border-blue-500 bg-blue-50 text-blue-700' : 'border-slate-200 bg-white text-slate-700 hover:border-slate-300'}`
+                  },
+                    React.createElement('div', { className: 'font-semibold' }, 'Internal Resource'),
+                    React.createElement('div', { className: 'text-xs mt-1' }, '$12,500/month (Salary + Tools)')
+                  )
+                )
+              ),
+              React.createElement('div', { className: 'flex-1' },
+                React.createElement('label', { className: 'block text-sm font-medium text-slate-700 mb-3' }, 'Outreach Strategy'),
+                React.createElement('div', { className: 'flex flex-col gap-2' },
+                  React.createElement('button', {
+                    onClick: () => setOutreachStrategy('agency'),
+                    className: `py-3 px-3 rounded-lg text-sm font-medium transition border-2 ${outreachStrategy === 'agency' ? 'border-blue-500 bg-blue-50 text-blue-700' : 'border-slate-200 bg-white text-slate-700 hover:border-slate-300'}`
+                  },
+                    React.createElement('div', { className: 'font-semibold' }, 'Agency'),
+                    React.createElement('div', { className: 'text-xs mt-1' }, '$5,500/month + $3,300/month per additional profile')
+                  ),
+                  React.createElement('button', {
+                    onClick: () => setOutreachStrategy('internal'),
+                    className: `py-3 px-3 rounded-lg text-sm font-medium transition border-2 ${outreachStrategy === 'internal' ? 'border-blue-500 bg-blue-50 text-blue-700' : 'border-slate-200 bg-white text-slate-700 hover:border-slate-300'}`
+                  },
+                    React.createElement('div', { className: 'font-semibold' }, 'Internal Resource'),
+                    React.createElement('div', { className: 'text-xs mt-1' }, '$7,500/month + $6,750/month per additional profile')
+                  )
+                ),
+                React.createElement('div', { className: 'mt-3 border-t border-slate-200 pt-3' },
+                  React.createElement('label', { className: 'block text-sm font-medium text-slate-700 mb-2' }, `Profiles/SDRs ${budget >= 45000 ? '(default: 3)' : budget >= 35000 ? '(default: 2)' : '(default: 1)'}`),
+                  React.createElement('input', {
+                    type: 'number',
+                    value: outreachProfiles,
+                    onChange: (e) => setOutreachProfiles(Math.max(1, Number(e.target.value))),
+                    min: '1',
+                    className: 'w-full px-3 py-2 border border-slate-300 rounded-lg text-sm focus:ring-2 focus:ring-blue-500 focus:border-transparent'
+                  }),
+                  React.createElement('p', { className: 'text-xs text-slate-500 mt-1' },
+                    outreachStrategy === 'agency' ? '+60% per additional profile ($3,300/month)' : '+90% per additional profile ($6,750/month)'
+                  )
+                )
+              )
+            ),
+            !budgetBalanced && React.createElement('div', {
+              className: `mb-6 p-3 rounded-lg text-sm font-medium flex items-center gap-2 ${budgetDifference > 0 ? 'bg-red-50 text-red-800 border border-red-200' : 'bg-green-50 text-green-800 border border-green-200'}`
+            },
+              budgetDifference > 0 ? `⚠️ Over budget by ${formatCurrency(budgetDifference)}` : `✓ Under budget by ${formatCurrency(Math.abs(budgetDifference))}`
+            ),
+            React.createElement('div', { className: 'space-y-4' },
+              Object.keys(customAllocation)
+                .sort((a, b) => customAllocation[b] - customAllocation[a])
+                .map((channel) =>
+                  React.createElement('div', { key: channel },
+                    React.createElement('div', { className: 'flex justify-between items-center mb-2' },
+                      React.createElement('label', { className: 'text-sm font-medium text-slate-700' }, channel),
+                      React.createElement('div', { className: 'text-right' },
+                        React.createElement('span', { className: 'font-semibold text-slate-900 text-sm' }, formatCurrency(customAllocation[channel])),
+                        React.createElement('span', { className: 'text-xs text-slate-500 ml-2' }, `${allocationPercentages[channel]?.toFixed(1)}%`)
+                      )
+                    ),
+                    React.createElement('input', {
+                      type: 'range',
+                      min: '0',
+                      max: '100',
+                      value: allocationPercentages[channel] || 0,
+                      onChange: (e) => {
+                        const newPercentages = { ...allocationPercentages };
+                        newPercentages[channel] = Number(e.target.value);
+                        setAllocationPercentages(newPercentages);
+                      },
+                      className: 'w-full h-2 bg-slate-200 rounded-lg appearance-none cursor-pointer'
+                    })
+                  )
+                )
+            )
+          ),
+          React.createElement('div', { className: 'bg-white rounded-xl shadow-lg p-6' },
+            React.createElement('h3', { className: 'text-lg font-semibold text-slate-900 mb-4' }, 'Summary: Cost per Meeting by Channel'),
+            React.createElement('div', { className: 'space-y-3 mb-6' },
+              React.createElement('div', { className: 'flex justify-between items-center p-3 bg-slate-50 rounded-lg' },
+                React.createElement('span', { className: 'text-slate-700 font-medium' }, 'Quarterly Webinar'),
+                React.createElement('div', { className: 'text-right' },
+                  React.createElement('p', { className: 'text-slate-900 font-semibold' }, '$750'),
+                  React.createElement('p', { className: 'text-xs text-slate-500' }, '($500-$1,000)')
+                ),
+                React.createElement('span', { className: 'text-xs text-green-600 font-semibold ml-3' }, 'Most Efficient')
+              ),
+              React.createElement('div', { className: 'flex justify-between items-center p-3 bg-slate-50 rounded-lg' },
+                React.createElement('span', { className: 'text-slate-700 font-medium' }, 'Agency Outreach'),
+                React.createElement('div', { className: 'text-right' },
+                  React.createElement('p', { className: 'text-slate-900 font-semibold' }, '$850'),
+                  React.createElement('p', { className: 'text-xs text-slate-500' }, 'Direct & predictable')
+                )
+              ),
+              React.createElement('div', { className: 'flex justify-between items-center p-3 bg-slate-50 rounded-lg' },
+                React.createElement('span', { className: 'text-slate-700 font-medium' }, 'LinkedIn Ads'),
+                React.createElement('div', { className: 'text-right' },
+                  React.createElement('p', { className: 'text-slate-900 font-semibold' }, '$7,000'),
+                  React.createElement('p', { className: 'text-xs text-slate-500' }, 'Nurture & brand')
+                )
+              ),
+              React.createElement('div', { className: 'flex justify-between items-center p-3 bg-slate-50 rounded-lg' },
+                React.createElement('span', { className: 'text-slate-700 font-medium' }, 'Content/Organic'),
+                React.createElement('div', { className: 'text-right' },
+                  React.createElement('p', { className: 'text-slate-900 font-semibold' }, '$3,750'),
+                  React.createElement('p', { className: 'text-xs text-slate-500' }, 'Long-term ROI')
+                )
+              ),
+              React.createElement('div', { className: 'flex justify-between items-center p-3 bg-slate-50 rounded-lg' },
+                React.createElement('span', { className: 'text-slate-700 font-medium' }, 'Internal SDR Outreach'),
+                React.createElement('div', { className: 'text-right' },
+                  React.createElement('p', { className: 'text-slate-900 font-semibold' }, '$1,955'),
+                  React.createElement('p', { className: 'text-xs text-slate-500' }, 'Full control & scale')
+                )
+              )
+            ),
+            React.createElement('div', { className: 'border-t border-slate-200 pt-4 space-y-3' },
+              React.createElement('div', null,
+                React.createElement('p', { className: 'text-sm font-semibold text-slate-900 mb-2' }, 'Key Insights:'),
+                React.createElement('ul', { className: 'space-y-2 text-sm text-slate-700' },
+                  React.createElement('li', null, '• ', React.createElement('span', { className: 'font-semibold' }, 'Quarterly Webinar'), ' delivers the lowest cost per meeting at $750, making it the most efficient channel for consistent, high-quality pipeline generation'),
+                  React.createElement('li', null, '• ', React.createElement('span', { className: 'font-semibold' }, 'Agency Outreach'), ' is a close second at $850 median with predictable volume and direct control over messaging'),
+                  React.createElement('li', null, '• ', React.createElement('span', { className: 'font-semibold' }, 'Internal SDR Outreach'), ' costs $1,955/meeting but provides full control and maximum personalization for enterprise accounts'),
+                  React.createElement('li', null, '• ', React.createElement('span', { className: 'font-semibold' }, 'LinkedIn Ads'), ' at $7,000/meeting serves as a nurture and brand-building channel rather than direct pipeline generation'),
+                  React.createElement('li', null, '• ', React.createElement('span', { className: 'font-semibold' }, 'Content/Organic'), ' at $3,750/meeting builds long-term authority and supports the full sales funnel')
+                )
+              ),
+              React.createElement('div', { className: 'pt-3 border-t border-slate-200' },
+                React.createElement('p', { className: 'text-sm font-semibold text-slate-900 mb-2' }, 'Recommended Budget Allocation by Tier:'),
+                React.createElement('ul', { className: 'space-y-1 text-sm text-slate-700' },
+                  React.createElement('li', null, '• ', React.createElement('span', { className: 'font-semibold' }, '$20K:'), ' Foundational GTM with 1 SDR/Agency Outreach profile, webinars, and content optimization'),
+                  React.createElement('li', null, '• ', React.createElement('span', { className: 'font-semibold' }, '$30K:'), ' Increased content production, expanded webinar cadence, and buffer for testing new channels'),
+                  React.createElement('li', null, '• ', React.createElement('span', { className: 'font-semibold' }, '$40K:'), ' Scale to 2 SDR profiles, increase webinar frequency, strengthen LinkedIn paid presence and organic content'),
+                  React.createElement('li', null, '• ', React.createElement('span', { className: 'font-semibold' }, '$50K:'), ' Full SDR team (3 profiles), premium content program, sustained brand building across all channels with experimental budget')
+                )
+              )
+            )
+          )
+        )
+      )
+    )
   );
 }
 
