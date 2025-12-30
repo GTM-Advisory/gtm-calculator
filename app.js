@@ -3,9 +3,9 @@
 function GTMCalculator() {
   const [acv, setAcv] = React.useState(25000);
   const [salesCycle, setSalesCycle] = React.useState(90);
-  const [budget, setBudget] = React.useState(30000);
-  const [closeRate, setCloseRate] = React.useState(20);
-  const [qualificationRate, setQualificationRate] = React.useState(20);
+  const [budget, setBudget] = React.useState(20000);
+  const [closeRate, setCloseRate] = React.useState(25);
+  const [qualificationRate, setQualificationRate] = React.useState(25);
   const [paidMediaStrategy, setPaidMediaStrategy] = React.useState('agency');
   const [outreachStrategy, setOutreachStrategy] = React.useState('agency');
   const [outreachProfiles, setOutreachProfiles] = React.useState(1);
@@ -84,9 +84,9 @@ function GTMCalculator() {
   const resetAllocation = () => {
     setAcv(25000);
     setSalesCycle(90);
-    setBudget(30000);
-    setCloseRate(20);
-    setQualificationRate(18);
+    setBudget(20000);
+    setCloseRate(25);
+    setQualificationRate(25);
     setPaidMediaStrategy('agency');
     setOutreachStrategy('agency');
     setOutreachProfiles(1);
